@@ -1,0 +1,2 @@
+export const SPOTIFY_LOGIN = 'SPOTIFY_LOGIN';
+export const PROCESS_BIRTHDAY = 'PROCESS_BIRTHDAY';

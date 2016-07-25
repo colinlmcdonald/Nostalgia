@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { greeting } from './reducerGreeting'
+import { profile } from './reducerProfile'
 
 export default combineReducers({
-  greeting
+  Profile: profile
 })
