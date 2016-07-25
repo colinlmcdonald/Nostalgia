@@ -10,6 +10,7 @@ const fetch = require('isomorphic-fetch');
 const Promise = require('promise');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;
@@ -27,11 +28,14 @@ mongoose.connect('mongodb://localhost:27017');
 const db = mongoose.connection;
 const User = require('./db/User.model.js');
 
+const billboardCleanup = require('./server/billboardCleanup');
+
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
-}))
+}));
+// app.use(morgan('combined'))
 
 const client_id = config.CLIENT_ID;
 const redirect_uri = config.REDIRECT_URI;
@@ -106,27 +110,25 @@ app.get('/user/:id/profile', (req, res) => {
     .then(profile => profile.json())
     .then(json => res.send(json))
   })
-})
+});
 
 app.post('/user/:id/birthday', (req, res) => {
-  console.log(req.body)
   User.findOne({id: req.params.id}, (err, user) => {
     user.birthday = req.body
     user.save(() => {
-      console.log(user)
       res.send(user)
     })
   })
-})
+});
 
-app.post('/billboard', (req, res) => {
-  x('http://www.billboard.com/archive/charts/1991/hot-100', 'tbody', [{
-    song: ['.views-field-field-chart-item-song'],
-    artist: ['.views-field-field-chart-item-artist']
-  }])(function(err, title) {
-    console.log(title);
+app.get('/:year', (req, res) => {
+  x(`http://www.billboard.com/archive/charts/${req.params.year}/hot-100`, 'tbody', [{
+    songs: ['.views-field-field-chart-item-song'],
+    artists: ['.views-field-field-chart-item-artist']
+  }])(function(err, titles) {
+    billboardCleanup(titles, res);
   })
-})
+});
 
 if (isProduction) {
   const bundle = require('./compiler/compiler.js')
@@ -138,7 +140,7 @@ if (isProduction) {
   })
 };
 
-proxy.on('error', (e) => console.log('Could not connect to proxy, please try again...'));
+proxy.on('error', () => console.log('Could not connect to proxy, please try again...'));
 
 app.listen(port, () => console.log('Server running on port ' + port));
 

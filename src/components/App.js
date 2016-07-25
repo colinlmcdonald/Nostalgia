@@ -22,7 +22,7 @@ export class App extends Component {
   }
 
   handleHighSchool() {
-    
+    this.props.dispatch(actions.getHighschool(1990))
   }
 
   render() {
@@ -35,6 +35,7 @@ export class App extends Component {
           <input name='birthday' type='date'/>
           <input type='submit' />
         </form>
+        <button onClick={() => this.handleHighSchool()}>Highschool</button>
       </div>
     )
   }

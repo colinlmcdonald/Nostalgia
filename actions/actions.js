@@ -35,9 +35,17 @@ export function submitBirthday(bdayArr, id) {
 }
 
 export function processBirthday(payload) {
-  console.log(payload)
   return {
     type: constants.PROCESS_BIRTHDAY,
     payload
+  }
+}
+
+export function getHighschool(year) {
+  console.log(year)
+  return dispatch => {
+    return fetch(`http://localhost:3000/${year}`)
+      .then(res => res.json())
+      .then(json => console.log(json))
   }
 }
