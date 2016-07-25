@@ -1,0 +1,34 @@
+{
+  "engines": {
+    "node": "4.4.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress --colors"
+  },
+  "dependencies": {
+    "babel-core": "*",
+    "babel-loader": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "cors": "^2.7.1",
+    "isomorphic-fetch": "^2.2.1",
+    "querystring": "^0.2.0",
+    "react": "*",
+    "react-dom": "*",
+    "react-redux": "*",
+    "react-router": "*",
+    "redux": "*",
+    "redux-thunk": "*",
+    "webpack": "*"
+  },
+  "devDependencies": {
+    "express": "*",
+    "http-proxy": "*",
+    "react-hot-loader": "*",
+    "webpack-dev-middleware": "*",
+    "webpack-dev-server": "*",
+    "webpack-hot-middleware": "*"
+  }
+}
