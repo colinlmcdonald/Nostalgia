@@ -14,6 +14,8 @@
     "babel-preset-react": "*",
     "cors": "^2.7.1",
     "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^4.5.6",
+    "promise": "^7.1.1",
     "querystring": "^0.2.0",
     "react": "*",
     "react-dom": "*",
@@ -21,7 +23,8 @@
     "react-router": "*",
     "redux": "*",
     "redux-thunk": "*",
-    "webpack": "*"
+    "webpack": "*",
+    "x-ray": "^2.3.0"
   },
   "devDependencies": {
     "express": "*",
