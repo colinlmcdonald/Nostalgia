@@ -7,7 +7,6 @@ const querystring = require('querystring');
 const publicPath = path.resolve(__dirname, 'public');
 const config = require('./config.js');
 const fetch = require('isomorphic-fetch');
-const Promise = require('promise');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -28,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017');
 const db = mongoose.connection;
 const User = require('./db/User.model.js');
 
-const billboardCleanup = require('./server/billboardCleanup');
+const bd = require('./server/billboardCleanup');
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
@@ -122,15 +121,16 @@ app.post('/user/:id/birthday', (req, res) => {
 });
 
 app.get('/:year', (req, res) => {
-  x(`http://www.billboard.com/archive/charts/${req.params.year}/hot-100`, 'tbody', [{
+  const year = req.params.year;
+  x(`http://www.billboard.com/archive/charts/${year}/hot-100`, 'tbody', [{
     songs: ['.views-field-field-chart-item-song'],
     artists: ['.views-field-field-chart-item-artist']
   }])(function(err, titles) {
-    billboardCleanup(titles, res);
+    bd.billboardCleanup(titles, year, res);
   })
 });
 
-if (isProduction) {
+if (!isProduction) {
   const bundle = require('./compiler/compiler.js')
   bundle()
   app.all('/build/*', (req, res) => {

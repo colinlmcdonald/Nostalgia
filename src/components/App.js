@@ -26,7 +26,8 @@ export class App extends Component {
   }
 
   render() {
-    const {image, name} = this.props
+    const {image, name, highschool} = this.props
+    console.log(highschool);
     return (
       <div>
         <h2>{name}</h2>
@@ -46,11 +47,13 @@ function mapStateToProps(state) {
   const image = state.Profile.image;
   const id = state.Profile.id;
   const birthday = state.Profile.birthday;
+  const highschool = state.Profile.highschool;
   return {
     name,
     image,
     id,
-    birthday
+    birthday,
+    highschool
   }
 };
 

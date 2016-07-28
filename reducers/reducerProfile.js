@@ -4,7 +4,8 @@ export function profile(state = {
   name: '',
   image: '',
   id: '',
-  birthday: ''
+  birthday: '',
+  highschool: []
 }, action) {
   switch(action.type) {
     case constants.SPOTIFY_LOGIN:
@@ -16,6 +17,10 @@ export function profile(state = {
     case constants.PROCESS_BIRTHDAY:
       return Object.assign({}, state, {
         birthday: action.payload
+      })
+    case constants.RECEIVE_HIGHSCHOOL:
+      return Object.assign({}, state, {
+        highschool: action.payload
       })
     default:
       return state

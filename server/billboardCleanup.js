@@ -1,7 +1,8 @@
 'use strict'
+var Promise = require('bluebird');
 
 module.exports = {
-  billboardCleanup(data, res) {
+  billboardCleanup(data, year, res) {
     const matches = [];
     const songs = data[0].songs;
     const artists = data[0].artists;
@@ -14,16 +15,19 @@ module.exports = {
         artist: artist
       });
     });
-    return new Promise((resolve, reject) => {
-
-    })
+    this.fetchSpotify(matches, year)
+      .then(songs => res.send(songs))
+      .catch(err => throw err)
   },
 
-  fetchSpotify(billboard, res) {
-    billboard.reduce((start, item) => {
-      return fetch(`https://api.spotify.com/v1/search?q=${item.song}&type=track`)
+  fetchSpotify(billboard, year) {
+    let song, artist;
+    return Promise.map(billboard, (val) => {
+      song = val.song.replace(/[\s]/g, '%20');
+      artist = val.artist.replace(/[\s]/g, '%20');
+      return fetch(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}%20year:${year}&type=track`)
         .then(response => response.json())
-        .then(spot => start.push(spot))
-    }, [])
+        .then(song => song)
+    });
   }
-}
+};

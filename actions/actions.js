@@ -42,10 +42,16 @@ export function processBirthday(payload) {
 }
 
 export function getHighschool(year) {
-  console.log(year)
   return dispatch => {
     return fetch(`http://localhost:3000/${year}`)
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(json => dispatch(processHighschool(json)))
+  }
+}
+
+export function processHighschool(payload) {
+  return {
+    type: constants.RECEIVE_HIGHSCHOOL,
+    payload
   }
 }
