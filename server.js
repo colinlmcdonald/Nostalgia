@@ -48,7 +48,7 @@ app.get('/login', (req, res) => {
       client_id: client_id,
       scope: scope,
       redirect_uri: redirect_uri
-    }))
+    }));
 });
 
 app.get('/callback', (req, res) => {
@@ -65,34 +65,33 @@ app.get('/callback', (req, res) => {
       'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
     }
   })
-    .then(spotify => spotify.json())
-    .then(json => {
-      access_token = json.access_token;
-      refresh_token = json.refresh_token;
-      return fetch('https://api.spotify.com/v1/me', {
-        headers: {
-          Authorization: 'Bearer ' + json.access_token
-        }
-      })
-    })
-    .then(json => json.json())
-    .then(profile => {
-      User.findOne({id: profile.id}, (err, user) => {
-        if (user) {
-          user.access_token = access_token;
-          user.refresh_token = refresh_token;
-          user.save(() => res.redirect('/user/' + user.id))
-          
-        } else {
-          user = new User({
-            id: profile.id,
-            access_token: access_token,
-            refresh_token: refresh_token
-          });
-          user.save(() => res.redirect('/user/' + profile.id))
-        }
-      });
+  .then(spotify => spotify.json())
+  .then(json => {
+    access_token = json.access_token;
+    refresh_token = json.refresh_token;
+    return fetch('https://api.spotify.com/v1/me', {
+      headers: {
+        Authorization: 'Bearer ' + json.access_token
+      }
     });
+  })
+  .then(json => json.json())
+  .then(profile => {
+    User.findOne({id: profile.id}, (err, user) => {
+      if (user) {
+        user.access_token = access_token;
+        user.refresh_token = refresh_token;
+        user.save(() => res.redirect('/user/' + user.id));
+      } else {
+        user = new User({
+          id: profile.id,
+          access_token: access_token,
+          refresh_token: refresh_token
+        });
+        user.save(() => res.redirect('/user/' + profile.id))
+      }
+    });
+  });
 });
 
 app.get('/user/:id', (req, res) => {
@@ -107,17 +106,21 @@ app.get('/user/:id/profile', (req, res) => {
         }
       })
     .then(profile => profile.json())
-    .then(json => res.send(json))
-  })
+    .then(json => {
+      json.birthday = user.birthday;
+      console.log(json);
+      res.send(json);
+    });
+  });
 });
 
 app.post('/user/:id/birthday', (req, res) => {
   User.findOne({id: req.params.id}, (err, user) => {
     user.birthday = req.body
     user.save(() => {
-      res.send(user)
-    })
-  })
+      res.send(user);
+    });
+  });
 });
 
 app.get('/:year', (req, res) => {
@@ -127,7 +130,7 @@ app.get('/:year', (req, res) => {
     artists: ['.views-field-field-chart-item-artist']
   }])(function(err, titles) {
     bd.billboardCleanup(titles, year, res);
-  })
+  });
 });
 
 if (!isProduction) {
@@ -136,8 +139,8 @@ if (!isProduction) {
   app.all('/build/*', (req, res) => {
     proxy.web(req, res, {
         target: 'http://localhost:8080'
-    })
-  })
+    });
+  });
 };
 
 proxy.on('error', () => console.log('Could not connect to proxy, please try again...'));

@@ -4,11 +4,11 @@ export function getProfileInfo(id) {
   return dispatch => {
     return fetch(`http://localhost:3000/user/${id}/profile`)
       .then(res => res.json())
-      .then(json => dispatch(processProfile(json)))
+      .then(json => dispatch(processProfileInfo(json)))
   }
 };
 
-export function processProfile(payload) {
+export function processProfileInfo(payload) {
   return {
     type: constants.SPOTIFY_LOGIN,
     payload

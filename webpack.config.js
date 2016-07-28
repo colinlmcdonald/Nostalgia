@@ -32,7 +32,7 @@ module.exports = {
       //This converts our .css into JS
       {
         test: /\.css$/,
-        loader: 'css-loader'
+        loader: 'style-loader!css-loader'
       }
     ]
   },

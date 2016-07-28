@@ -15,9 +15,7 @@ module.exports = {
         artist: artist
       });
     });
-    this.fetchSpotify(matches, year)
-      .then(songs => res.send(songs))
-      .catch(err => throw err)
+    res.send(matches)
   },
 
   fetchSpotify(billboard, year) {

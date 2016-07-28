@@ -4,6 +4,7 @@ import { Link }               from 'react-router';
 import { connect }            from 'react-redux';
 
 import * as actions           from '../../actions/actions'
+import { Playlist }           from './Playlist'
 
 export class App extends Component {
   
@@ -37,6 +38,7 @@ export class App extends Component {
           <input type='submit' />
         </form>
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
+        <Playlist tracks={highschool} />
       </div>
     )
   }
@@ -48,6 +50,7 @@ function mapStateToProps(state) {
   const id = state.Profile.id;
   const birthday = state.Profile.birthday;
   const highschool = state.Profile.highschool;
+  console.log(birthday);
   return {
     name,
     image,

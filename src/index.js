@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { browserHistory } from 'react-router'
 import thunk from 'redux-thunk'
 import 'isomorphic-fetch'
+import '../public/styles.css'
 
 import Root from './root'
 import rootReducer from '../reducers/reducers'
