@@ -3,8 +3,10 @@ import { render }             from 'react-dom';
 import { Link }               from 'react-router';
 import { connect }            from 'react-redux';
 
-import * as actions           from '../../actions/actions'
-import { Playlist }           from './Playlist'
+import * as actions           from '../../actions/actions';
+import { Playlist }           from './Playlist';
+import { BirthdayDisplay }    from './BirthdayDisplay';
+import { BirthdayForm }       from './BirthdayForm';
 
 export class App extends Component {
   
@@ -23,22 +25,28 @@ export class App extends Component {
   }
 
   handleHighSchool() {
-    this.props.dispatch(actions.getHighschool(1990))
+    const { dispatch, birthday } = this.props;
+    const highschool = parseInt(birthday.year) + 14;
+    dispatch(actions.getSchoolPlaylist(highschool));
+  }
+
+  handleMiddleSchool() {
+    const { dispatch, birthday } = this.props;
+    const middleschool = parseInt(birthday.year) + 12;
+    dispatch(actions.getSchoolPlaylist(middleschool));
   }
 
   render() {
-    const {image, name, highschool} = this.props
-    console.log(highschool);
+    const {image, name, playlist, birthday} = this.props
+    console.log(playlist);
     return (
       <div>
         <h2>{name}</h2>
         <img src={image} />
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input name='birthday' type='date'/>
-          <input type='submit' />
-        </form>
+        {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
-        <Playlist tracks={highschool} />
+        <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
+        <Playlist tracks={playlist} />
       </div>
     )
   }
@@ -49,14 +57,13 @@ function mapStateToProps(state) {
   const image = state.Profile.image;
   const id = state.Profile.id;
   const birthday = state.Profile.birthday;
-  const highschool = state.Profile.highschool;
-  console.log(birthday);
+  const playlist = state.Profile.playlist;
   return {
     name,
     image,
     id,
     birthday,
-    highschool
+    playlist
   }
 };
 

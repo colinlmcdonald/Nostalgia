@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017');
 const db = mongoose.connection;
 const User = require('./db/User.model.js');
 
-const bd = require('./server/billboardCleanup');
+const cp = require('./server/createPlaylist');
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
@@ -108,7 +108,6 @@ app.get('/user/:id/profile', (req, res) => {
     .then(profile => profile.json())
     .then(json => {
       json.birthday = user.birthday;
-      console.log(json);
       res.send(json);
     });
   });
@@ -129,7 +128,7 @@ app.get('/:year', (req, res) => {
     songs: ['.views-field-field-chart-item-song'],
     artists: ['.views-field-field-chart-item-artist']
   }])(function(err, titles) {
-    bd.billboardCleanup(titles, year, res);
+    cp.billboardCleanup(titles, year, res);
   });
 });
 

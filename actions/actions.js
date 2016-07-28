@@ -41,17 +41,17 @@ export function processBirthday(payload) {
   }
 }
 
-export function getHighschool(year) {
+export function getSchoolPlaylist(year) {
   return dispatch => {
     return fetch(`http://localhost:3000/${year}`)
       .then(res => res.json())
-      .then(json => dispatch(processHighschool(json)))
+      .then(json => dispatch(processSchoolPlaylist(json)))
   }
 }
 
-export function processHighschool(payload) {
+export function processSchoolPlaylist(payload) {
   return {
-    type: constants.RECEIVE_HIGHSCHOOL,
+    type: constants.RECEIVE_SCHOOL,
     payload
   }
 }
