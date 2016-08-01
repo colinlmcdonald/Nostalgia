@@ -9,6 +9,10 @@ import { BirthdayDisplay }    from './BirthdayDisplay';
 import { BirthdayForm }       from './BirthdayForm';
 
 export class App extends Component {
+  constructor(props) {
+    super(props)
+    this.removeSong = this.removeSong.bind(this)
+  }
   
   componentDidMount() {
     const { params, dispatch } = this.props;
@@ -24,16 +28,28 @@ export class App extends Component {
     dispatch(actions.submitBirthday(bday, id));
   }
 
+  removeSong(song, i) {
+    this.props.dispatch(actions.replaceTrack(song, i))
+  }
+
   handleHighSchool() {
-    const { dispatch, birthday } = this.props;
-    const highschool = parseInt(birthday.year) + 14;
-    dispatch(actions.getSchoolPlaylist(highschool));
+    const { dispatch, birthday, id } = this.props;
+    const start = parseInt(birthday.year) + 14;
+    const highschool = [];
+    for (var i = start; i < start + 4; i++) {
+      highschool.push(i);
+    };
+    dispatch(actions.getSchoolPlaylist(highschool, id));
   }
 
   handleMiddleSchool() {
-    const { dispatch, birthday } = this.props;
-    const middleschool = parseInt(birthday.year) + 12;
-    dispatch(actions.getSchoolPlaylist(middleschool));
+    const { dispatch, birthday, id } = this.props;
+    const start = parseInt(birthday.year) + 12;
+    const middleschool = [];
+    for (var i = start; i < start + 4; i++) {
+      middleschool.push(i);
+    };
+    dispatch(actions.getSchoolPlaylist(middleschool, id));
   }
 
   render() {
@@ -46,7 +62,7 @@ export class App extends Component {
         {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
-        <Playlist tracks={playlist} />
+        <Playlist tracks={playlist} removeSong={this.removeSong}/>
       </div>
     )
   }

@@ -29,8 +29,8 @@ export function submitBirthday(bdayArr, id) {
       },
       body: JSON.stringify(bday)
     })
-      .then(res => res.json())
-      .then(json => dispatch(processBirthday(json)))
+    .then(res => res.json())
+    .then(json => dispatch(processBirthday(json)))
   }
 }
 
@@ -41,17 +41,38 @@ export function processBirthday(payload) {
   }
 }
 
-export function getSchoolPlaylist(year) {
+export function getSchoolPlaylist(years) {
   return dispatch => {
-    return fetch(`http://localhost:3000/${year}`)
-      .then(res => res.json())
-      .then(json => dispatch(processSchoolPlaylist(json)))
+    return fetch(`http://localhost:3000/generate-playlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(years)
+    })
+    .then(res => res.json())
+    .then(json => dispatch(processSchoolPlaylist(json)))
   }
 }
 
 export function processSchoolPlaylist(payload) {
+  const songs = [];
+  for (var key in payload) {
+    songs.push({
+      song: key,
+      artist: payload[key]
+    })
+  }
   return {
     type: constants.RECEIVE_SCHOOL,
-    payload
+    payload: songs
+  }
+}
+
+export function replaceTrack(payload, i) {
+  return {
+    type: constants.REPLACE_TRACK,
+    payload,
+    i
   }
 }

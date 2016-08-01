@@ -10,6 +10,7 @@ const fetch = require('isomorphic-fetch');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+var Promise = require('bluebird');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;
@@ -122,14 +123,27 @@ app.post('/user/:id/birthday', (req, res) => {
   });
 });
 
-app.get('/:year', (req, res) => {
-  const year = req.params.year;
-  x(`http://www.billboard.com/archive/charts/${year}/hot-100`, 'tbody', [{
-    songs: ['.views-field-field-chart-item-song'],
-    artists: ['.views-field-field-chart-item-artist']
-  }])(function(err, titles) {
-    cp.billboardCleanup(titles, year, res);
-  });
+app.post('/generate-playlist', (req, res) => {
+  const years = req.body;
+  Promise.map(years, year => {
+    return new Promise(resolve => {
+      x(`http://www.billboard.com/archive/charts/${year}/hot-100`, 'tbody', [{
+        songs: ['.views-field-field-chart-item-song'],
+        artists: ['.views-field-field-chart-item-artist']
+      }])(function(err, titles) {
+        resolve(cp.billboardCleanup(titles));
+      });
+    });
+  })
+  .then(songs => {
+    let reducedSongs = songs.reduce((start, item) => {
+      for (var key in item) {
+        start[key] = item[key]
+      }
+      return start
+    }, {});
+    res.send(reducedSongs)
+  })
 });
 
 if (!isProduction) {
