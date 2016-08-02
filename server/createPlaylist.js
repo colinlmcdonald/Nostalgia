@@ -15,12 +15,13 @@ module.exports = {
     return matches
   },
 
-  fetchSpotify(billboard, year) {
+  fetchSpotify(billboard) {
     let song, artist;
+    console.log(billboard);
     return Promise.map(billboard, (val) => {
       song = encodeURI(val.song);
       artist = encodeURI(val.artist);
-      return fetch(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}%20year:${year}&type=track`)
+      return fetch(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}&type=track`)
         .then(response => response.json())
         .then(song => song)
     })

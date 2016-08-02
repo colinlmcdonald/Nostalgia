@@ -1,7 +1,8 @@
 import React from 'react'
 
-export const Track = ({track, i, removeSong}) => (
-  <div onClick={() => removeSong(track, i)}>
-    <span className='artist'>{track.artist}</span> - {track.song}
-  </div>
+export const Track = ({track, i, addSong}) => (
+  <tr onClick={() => addSong(track, i)}>
+    <td className='artist'>{track.artist}</td>
+    <td>{track.song}</td>
+  </tr>
 )

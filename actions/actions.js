@@ -51,11 +51,11 @@ export function getSchoolPlaylist(years) {
       body: JSON.stringify(years)
     })
     .then(res => res.json())
-    .then(json => dispatch(processSchoolPlaylist(json)))
+    .then(json => dispatch(processSchoolPlaylist(json, dispatch)))
   }
 }
 
-export function processSchoolPlaylist(payload) {
+export function processSchoolPlaylist(payload, dispatch) {
   const songs = [];
   for (var key in payload) {
     songs.push({
@@ -63,6 +63,7 @@ export function processSchoolPlaylist(payload) {
       artist: payload[key]
     })
   }
+  dispatch(checkIfSongsOnSpotify(songs, payload))
   return {
     type: constants.RECEIVE_SCHOOL,
     payload: songs
@@ -74,5 +75,43 @@ export function replaceTrack(payload, i) {
     type: constants.REPLACE_TRACK,
     payload,
     i
+  }
+}
+
+export function createPlaylist(playlist) {
+  return dispatch => {
+    fetch()
+  }
+}
+
+export function checkIfSongsOnSpotify(songs, originalList) {
+  return dispatch => {
+    fetch('http://localhost:3000/check-songs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(songs)
+    })
+    .then(res => res.json())
+    .then(json => dispatch(processSpotifyCheck(json, originalList)))
+  }
+}
+
+export function processSpotifyCheck(payload, originalList) {
+  let tracks = payload.filter(song => {
+    return song.tracks.items.length > 0
+  });
+  return {
+    type: constants.SPOTIFY_CHECK,
+    payload: tracks,
+    original: originalList
+  }
+}
+
+export function addSong(payload) {
+  return {
+    type: constants.ADD_SONG,
+    payload
   }
 }

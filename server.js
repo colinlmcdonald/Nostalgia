@@ -146,6 +146,19 @@ app.post('/generate-playlist', (req, res) => {
   })
 });
 
+app.post('/create-playlist', (req, res) => {
+
+})
+
+app.post('/check-songs', (req, res) => {
+  console.log(req.body)
+  cp.fetchSpotify(req.body)
+    .then(songs => {
+      console.log(songs)
+      res.send(songs)
+    })
+})
+
 if (!isProduction) {
   const bundle = require('./compiler/compiler.js')
   bundle()

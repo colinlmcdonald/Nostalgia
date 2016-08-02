@@ -12,6 +12,7 @@ export class App extends Component {
   constructor(props) {
     super(props)
     this.removeSong = this.removeSong.bind(this)
+    this.addSong = this.addSong.bind(this)
   }
   
   componentDidMount() {
@@ -29,7 +30,11 @@ export class App extends Component {
   }
 
   removeSong(song, i) {
-    this.props.dispatch(actions.replaceTrack(song, i))
+    this.props.dispatch(actions.replaceTrack(song, i));
+  }
+
+  addSong(song) {
+    this.props.dispatch(actions.addSong(song));
   }
 
   handleHighSchool() {
@@ -52,8 +57,13 @@ export class App extends Component {
     dispatch(actions.getSchoolPlaylist(middleschool, id));
   }
 
+  createPlaylist() {
+    const { dispatch, playlist } = this.props
+    dispatch(actions.createPlaylist(playlist))
+  }
+
   render() {
-    const {image, name, playlist, birthday} = this.props
+    const {image, name, playlist, birthday, allSongs} = this.props
     console.log(playlist);
     return (
       <div>
@@ -62,7 +72,16 @@ export class App extends Component {
         {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
-        <Playlist tracks={playlist} removeSong={this.removeSong}/>
+        <table>
+          <colgroup span='2'></colgroup>
+          <td>
+          <Playlist tracks={allSongs} addSong={this.addSong}/>
+          </td>
+          <td>
+          <Playlist tracks={playlist} />
+          </td>
+        </table>
+        <button onClick={() => this.createPlaylist()}>Create Playlist</button>
       </div>
     )
   }
@@ -74,11 +93,13 @@ function mapStateToProps(state) {
   const id = state.Profile.id;
   const birthday = state.Profile.birthday;
   const playlist = state.Profile.playlist;
+  const allSongs = state.Profile.allSongs;
   return {
     name,
     image,
     id,
     birthday,
+    allSongs,
     playlist
   }
 };

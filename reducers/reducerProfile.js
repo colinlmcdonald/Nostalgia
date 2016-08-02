@@ -27,6 +27,12 @@ export function profile(state = {
       return randomPlaylist(state, action.payload)
     case constants.REPLACE_TRACK:
       return replaceSong(state, action.payload, action.i)
+    case constants.SPOTIFY_CHECK:
+      return applySpotify(state, action.payload, action.original)
+    case constants.ADD_SONG:
+      return Object.assign({}, state, {
+        playlist: update(state.playlist, {$push: [action.payload]})
+      })
     default:
       return state
   }
@@ -41,10 +47,34 @@ export function randomPlaylist(state, songs) {
     playlist.push(song[0]);
   }
   return Object.assign({}, state, {
-    allSongs: [],
+    allSongs: songs,
     unusedSongs: songs,
-    usedSongs: [],
-    playlist
+    usedSongs: []
+  })
+}
+
+export function applySpotify(state, spotifySongs) {
+  const matches = [];
+  let song, re, re2;
+  let flag = false;
+  for (let i = 0; i < state.allSongs.length; i++) {
+    for (let j = 0; j < spotifySongs.length; j++) {
+      re = new RegExp(spotifySongs[j].tracks.items[0].name, 'g');
+      re2 = new RegExp(state.allSongs[i].song, 'g');
+      if (re.test(state.allSongs[i].song) || re2.test(spotifySongs[j].tracks.items[0].name)) {
+        song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]})
+        matches.push(song)
+        flag = true;
+      } 
+    }
+    if (flag) {
+      flag = false;
+    } else {
+      matches.push(state.allSongs[i])
+    }
+  }
+  return Object.assign({}, state, {
+    allSongs: matches
   })
 }
 
