@@ -4,6 +4,8 @@ import { Link }               from 'react-router';
 import { connect }            from 'react-redux';
 
 import * as actions           from '../../actions/actions';
+
+import { NavBar }             from './NavBar';
 import { Playlist }           from './Playlist';
 import { BirthdayDisplay }    from './BirthdayDisplay';
 import { BirthdayForm }       from './BirthdayForm';
@@ -67,20 +69,14 @@ export class App extends Component {
     console.log(playlist);
     return (
       <div>
+        <NavBar />
         <h2>{name}</h2>
         <img src={image} />
-        {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
+        {birthday ? <BirthdayDisplay birthday={birthday} convertDay={this.convertDay} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
-        <table>
-          <colgroup span='2'></colgroup>
-          <td>
-          <Playlist tracks={allSongs} addSong={this.addSong}/>
-          </td>
-          <td>
-          <Playlist tracks={playlist} />
-          </td>
-        </table>
+        <Playlist tracks={allSongs} addSong={this.addSong}/>
+        <Playlist tracks={playlist} />
         <button onClick={() => this.createPlaylist()}>Create Playlist</button>
       </div>
     )

@@ -1,18 +1,52 @@
-.artist {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-size: 14px;
+  line-height: 25.2px;
+}
+
+.grid {
+  border: solid 1px #e7e7e7;
+  flex: 1;
+}
+
+.grid-row {
+  display: flex;
+  justify-content: center;
+}
+
+.grid-item {
+  flex: 1;
+  padding: 12px;
+}
+
+@media all and ( min-width: 480px ) {
+
+  .grid-row-sm {
+    flex-direction: row;
+  }
+
+}
+
+@media all and ( min-width: 720px ) {
+
+  .grid-row-md {
+    flex-direction: row;
+  }
+
+}
+
+@media all and ( min-width: 960px ) {
+
+  .grid-row-lg {
+    flex-direction: column;
+  }
+
+}
+
+.track-artist {
   font-weight: bold;
-}
-
-.playlist {
-  margin: 0 auto;
-}
-
-.songs {
-
-}
-
-.front-header {
-  text-align: center;
-}
-.text-wrapper {
-  margin: 0 auto;
 }
