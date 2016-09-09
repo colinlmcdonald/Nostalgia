@@ -57,12 +57,14 @@ export function getSchoolPlaylist(years) {
 
 export function processSchoolPlaylist(payload, dispatch) {
   const songs = [];
+  //Payload comes back as object from server with Artists as keys and Tracks as values
   for (var key in payload) {
     songs.push({
       song: key,
       artist: payload[key]
     })
   }
+  //Load the song list while we wait to see if they are actually on Spotify
   dispatch(checkIfSongsOnSpotify(songs, payload))
   return {
     type: constants.RECEIVE_SCHOOL,

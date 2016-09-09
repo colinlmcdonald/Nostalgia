@@ -77,6 +77,7 @@ export class App extends Component {
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
         <Playlist tracks={allSongs} addSong={this.addSong}/>
         <Playlist tracks={playlist} />
+        {/* TODO: Create playlist button */}
         <button onClick={() => this.createPlaylist()}>Create Playlist</button>
       </div>
     )

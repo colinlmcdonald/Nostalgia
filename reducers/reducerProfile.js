@@ -7,8 +7,6 @@ export function profile(state = {
   id: '',
   birthday: '',
   allSongs: [],
-  unusedSongs: [],
-  usedSongs: [],
   playlist: []
 }, action) {
   switch(action.type) {
@@ -24,7 +22,9 @@ export function profile(state = {
         birthday: action.payload
       })
     case constants.RECEIVE_SCHOOL:
-      return randomPlaylist(state, action.payload)
+      return Object.assign({}, state, {
+        allSongs: action.payload
+      })
     case constants.REPLACE_TRACK:
       return replaceSong(state, action.payload, action.i)
     case constants.SPOTIFY_CHECK:
@@ -36,21 +36,6 @@ export function profile(state = {
     default:
       return state
   }
-}
-
-export function randomPlaylist(state, songs) {
-  const playlist = [];
-  let song;
-
-  for (var i = 0; i <= 10; i++) {
-    song = songs.splice(Math.floor(Math.random() * songs.length), 1);
-    playlist.push(song[0]);
-  }
-  return Object.assign({}, state, {
-    allSongs: songs,
-    unusedSongs: songs,
-    usedSongs: []
-  })
 }
 
 export function applySpotify(state, spotifySongs) {
