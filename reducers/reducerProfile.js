@@ -38,15 +38,14 @@ export function profile(state = {
   }
 }
 
+//Check to see if a song is on Spotify. If so, add the Spotify props to it so we can play a clip of the song, add it to a playlist, etc.
 export function applySpotify(state, spotifySongs) {
   const matches = [];
-  let song, re, re2;
+  let song, billboardSong, spotifySong;
   let flag = false;
   for (let i = 0; i < state.allSongs.length; i++) {
     for (let j = 0; j < spotifySongs.length; j++) {
-      re = new RegExp(spotifySongs[j].tracks.items[0].name, 'g');
-      re2 = new RegExp(state.allSongs[i].song, 'g');
-      if (re.test(state.allSongs[i].song) || re2.test(spotifySongs[j].tracks.items[0].name)) {
+      if (testMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
         song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]})
         matches.push(song)
         flag = true;
@@ -63,24 +62,23 @@ export function applySpotify(state, spotifySongs) {
   })
 }
 
-export function replaceSong(state, song, i) {
-  const { unusedSongs, playlist, usedSongs } = state;
-  const index = Math.floor(Math.random() * unusedSongs.length);
-  const randomSong = unusedSongs[index];
-  let newUnusedSongs = update(unusedSongs, {$splice: [[index, 1]]});
-  const oldSong = playlist.slice(i, 1);
-  const newPlaylist = update(playlist, {$splice: [[i, 1, randomSong]]});
-  let newUsedSongs = update(usedSongs, {$push: oldSong});
+export function testMatches(s1, s2) {
+  var x = s1.split(' ');
+  var y = s2.split(' ');
 
-  if (!newUnusedSongs.length) {
-    newUnusedSongs = newUsedSongs;
-    newUsedSongs = [];
+  var count = 0;
+
+  for (var i = 0; i < x.length; i++) {
+    for (var j = 0; j < y.length; j++) {
+      if (x[i] === y[j]) {
+        count++
+      }
+    }
   }
 
-  return Object.assign({}, state, {
-    unusedSongs: newUnusedSongs,
-    playlist: newPlaylist,
-    usedSongs: newUsedSongs
-  })
-
+  if (count > 1) {
+    return true;
+  } else {
+    return false;
+  }
 }

@@ -66,7 +66,7 @@ export class App extends Component {
 
   render() {
     const {image, name, playlist, birthday, allSongs} = this.props
-    console.log(playlist);
+    console.log(allSongs);
     return (
       <div>
         <NavBar />
@@ -75,8 +75,16 @@ export class App extends Component {
         {birthday ? <BirthdayDisplay birthday={birthday} convertDay={this.convertDay} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
         <button onClick={() => this.handleHighSchool()}>Highschool</button>
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
-        <Playlist tracks={allSongs} addSong={this.addSong}/>
-        <Playlist tracks={playlist} />
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-6'>
+              <Playlist tracks={allSongs} addSong={this.addSong}/>
+            </div>
+            <div className='col-md-6'>
+              <Playlist tracks={playlist} />
+            </div>
+          </div>
+        </div>
         {/* TODO: Create playlist button */}
         <button onClick={() => this.createPlaylist()}>Create Playlist</button>
       </div>

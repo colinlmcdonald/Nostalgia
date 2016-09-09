@@ -86,7 +86,7 @@ export function createPlaylist(playlist) {
   }
 }
 
-export function checkIfSongsOnSpotify(songs, originalList) {
+export function checkIfSongsOnSpotify(songs) {
   return dispatch => {
     fetch('http://localhost:3000/check-songs', {
       method: 'POST',
@@ -96,18 +96,17 @@ export function checkIfSongsOnSpotify(songs, originalList) {
       body: JSON.stringify(songs)
     })
     .then(res => res.json())
-    .then(json => dispatch(processSpotifyCheck(json, originalList)))
+    .then(json => dispatch(processSpotifyCheck(json)))
   }
 }
 
-export function processSpotifyCheck(payload, originalList) {
+export function processSpotifyCheck(payload) {
   let tracks = payload.filter(song => {
     return song.tracks.items.length > 0
   });
   return {
     type: constants.SPOTIFY_CHECK,
-    payload: tracks,
-    original: originalList
+    payload: tracks
   }
 }
 

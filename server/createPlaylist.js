@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 var Promise = require('bluebird');
 
 module.exports = {
@@ -15,11 +16,28 @@ module.exports = {
     return matches
   },
 
+  longestTwoWords(song) {
+    var temp, words = song.split(' ');
+    var one = '';
+    var two = '';
+    words.forEach(word => {
+      if (word.length > two.length) {
+        if (word.length > one.length) {
+          temp = one;
+          one = word;
+          two = temp;
+        } else {
+          two = word;
+        }
+      }
+    })
+    return one + ' ' + two;
+  },
+
   fetchSpotify(billboard) {
     let song, artist;
-    console.log(billboard);
     return Promise.map(billboard, (val) => {
-      song = encodeURI(val.song);
+      song = encodeURI(this.longestTwoWords(val.song));
       artist = encodeURI(val.artist);
       return fetch(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}&type=track`)
         .then(response => response.json())

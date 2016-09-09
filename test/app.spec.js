@@ -1,9 +1,10 @@
-import React                  from 'react';
-import expect                 from 'expect';
-import sinon                  from 'sinon';
-import { shallow, mount }     from 'enzyme';
-import { App }                from '../src/components/App.js';
-import * as actions           from '../actions/actions';
+import React                      from 'react';
+import expect                     from 'expect';
+import sinon                      from 'sinon';
+import { shallow, mount }         from 'enzyme';
+import { App }                    from '../src/components/App';
+import * as actions               from '../actions/actions';
+import { applySpotify, profile }  from '../reducers/reducerProfile';
 
 describe('App Component', () => {
   it('dispatches getProfileInfo on componentDidMount', () => {
@@ -37,5 +38,4 @@ describe('App Component', () => {
     wrapper.instance().handleMiddleSchool();
     expect(dispatch.calledOnce).toEqual(true);
   });
-
 });
