@@ -6,6 +6,9 @@ export function profile(state = {
   image: '',
   id: '',
   birthday: '',
+  song: '',
+  play: false,
+  pause: false,
   allSongs: [],
   playlist: []
 }, action) {
@@ -30,8 +33,26 @@ export function profile(state = {
     case constants.SPOTIFY_CHECK:
       return applySpotify(state, action.payload, action.original)
     case constants.ADD_SONG:
+      let song = update(action.payload, {$merge: {inPlaylist: true}})
       return Object.assign({}, state, {
-        playlist: update(state.playlist, {$push: [action.payload]})
+        playlist: update(state.playlist, {$push: [song]})
+      })
+    case constants.REMOVE_SONG:
+      return Object.assign({}, state, {
+        playlist: update(state.playlist, {$splice: [[action.i, 1]]})
+      })
+    case constants.PLAY_SONG:
+      return Object.assign({}, state, {
+        song: action.payload.preview_url,
+        play: true,
+        pause: false,
+        allSongs: update(state.allSongs, {[action.i]: {isPlaying: {$set: true}}})
+      })
+    case constants.PAUSE_SONG:
+      return Object.assign({}, state, {
+        play: false,
+        pause: true,
+        allSongs: update(state.allSongs, {[action.i]: {isPlaying: {$set: false}}})
       })
     default:
       return state

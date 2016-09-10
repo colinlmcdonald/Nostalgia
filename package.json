@@ -26,6 +26,7 @@
     "querystring": "^0.2.0",
     "react": "^15.3.0",
     "react-addons-update": "^15.3.0",
+    "react-audio-player": "^0.2.5",
     "react-dom": "*",
     "react-redux": "*",
     "react-router": "*",

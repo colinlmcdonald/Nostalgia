@@ -110,9 +110,34 @@ export function processSpotifyCheck(payload) {
   }
 }
 
-export function addSong(payload) {
+export function addSong(payload, i) {
   return {
     type: constants.ADD_SONG,
-    payload
+    payload,
+    i
+  }
+}
+
+export function removeSong(payload, i) {
+  return {
+    type: constants.REMOVE_SONG,
+    payload,
+    i
+  }
+}
+
+export function playSong(payload, i) {
+  return {
+    type: constants.PLAY_SONG,
+    payload,
+    i
+  }
+}
+
+export function pauseSong(payload, i) {
+  return {
+    type: constants.PAUSE_SONG,
+    payload,
+    i
   }
 }

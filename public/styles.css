@@ -1,0 +1,58 @@
+.song-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 4px;
+}
+
+.song-name-album-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-song-number {
+  font-size: 16px;
+  color: gray;
+  text-align: center;
+  width: 45px;
+  line-height: 35px;
+}
+
+.artist-song {
+  margin-bottom: 0px;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 300px;
+}
+
+.artist {
+  color: gray;
+  font-size: 10px;
+  text-overflow: ellipsis;
+}
+
+.fa-play-circle {
+  font-size: 20px;
+  text-align: center;
+}
+
+.fa-pause-circle {
+  font-size: 20px;
+}
+
+.fa-plus {
+  font-size: 20px;
+}
+
+.fa-times {
+  font-size: 20px;
+}
+
+.fa {
+  padding: 5px;
+}
+
+#player {
+  display: none;
+}

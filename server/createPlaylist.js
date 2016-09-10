@@ -34,11 +34,27 @@ module.exports = {
     return one + ' ' + two;
   },
 
+  removeFeaturing(artist) {
+    var temp = artist.split(' ');
+    var result = [];
+
+    temp.forEach((word, i) => {
+      if (word !== 'featuring' && word !== 'Featuring') {
+        result.push(word)
+      } else {
+        temp.splice(i, temp.length)
+      }
+    })
+
+    return result.join(' ');
+  },
+
   fetchSpotify(billboard) {
     let song, artist;
     return Promise.map(billboard, (val) => {
       song = encodeURI(this.longestTwoWords(val.song));
-      artist = encodeURI(val.artist);
+      artist = encodeURI(this.removeFeaturing(val.artist));
+      console.log(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}&type=track`);
       return fetch(`https://api.spotify.com/v1/search?q=${song}%20artist:${artist}&type=track`)
         .then(response => response.json())
         .then(song => song)
