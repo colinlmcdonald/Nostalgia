@@ -4,6 +4,10 @@
   padding-top: 4px;
 }
 
+.song-container:hover {
+  font-weight: bold;
+}
+
 .song-name-album-container {
   display: flex;
   flex-direction: column;
@@ -32,6 +36,12 @@
   text-overflow: ellipsis;
 }
 
+.fa {
+  padding: 5px;
+  transition-duration: 2s;
+  opacity: 0;
+}
+
 .fa-play-circle {
   font-size: 20px;
   text-align: center;
@@ -49,8 +59,12 @@
   font-size: 20px;
 }
 
-.fa {
-  padding: 5px;
+.fa-check {
+  font-size: 20px;
+}
+
+.show {
+  opacity: 1;
 }
 
 #player {

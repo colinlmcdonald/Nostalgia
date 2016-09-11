@@ -111,6 +111,7 @@ export function processSpotifyCheck(payload) {
 }
 
 export function addSong(payload, i) {
+  payload.inPlaylist = true;
   return {
     type: constants.ADD_SONG,
     payload,
@@ -119,6 +120,7 @@ export function addSong(payload, i) {
 }
 
 export function removeSong(payload, i) {
+  payload.inPlaylist = false;
   return {
     type: constants.REMOVE_SONG,
     payload,

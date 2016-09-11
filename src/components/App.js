@@ -41,12 +41,12 @@ export class App extends Component {
     }
   }
 
-  handleSongPlay(selectedSong, i) {
-    const { dispatch, song, pause, play } = this.props;
-    if (selectedSong.preview_url === song && play === true) {
-      dispatch(actions.pauseSong(selectedSong, i))
+  handleSongPlay(song, i) {
+    const { dispatch, currentSong, pause, play } = this.props;
+    if (song.preview_url === currentSong && play === true) {
+      dispatch(actions.pauseSong(song, i))
     } else {
-      dispatch(actions.playSong(selectedSong, i))
+      dispatch(actions.playSong(song, i))
     }
   }
 
@@ -76,7 +76,7 @@ export class App extends Component {
   }
 
   render() {
-    const {image, name, playlist, birthday, allSongs, song, pause, play} = this.props
+    const {image, name, playlist, birthday, allSongs, currentSong, pause, play} = this.props
     return (
       <div>
         <NavBar />
@@ -87,18 +87,15 @@ export class App extends Component {
         <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
         <div className='container'>
           <div className='row'>
-            <div className='col-md-6'>
-              <Playlist tracks={allSongs} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay} song={song}/>
-            </div>
-            <div className='col-md-6'>
-              <Playlist tracks={playlist} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay}/>
+            <div className='col-md-12'>
+              <Playlist tracks={allSongs} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay} currentSong={currentSong}/>
             </div>
           </div>
         </div>
         {/* TODO: Create playlist button */}
         <button onClick={() => this.createPlaylist()}>Create Playlist</button>
         <div id='player'>
-          <ReactAudioPlayer src={song} autoPlay='false' pause={pause} play={play}/>
+          <ReactAudioPlayer src={currentSong} autoPlay='false' pause={pause} play={play}/>
         </div>
       </div>
     )
@@ -112,7 +109,7 @@ function mapStateToProps(state) {
   const birthday = state.Profile.birthday;
   const playlist = state.Profile.playlist;
   const allSongs = state.Profile.allSongs;
-  const song = state.Profile.song;
+  const currentSong = state.Profile.currentSong;
   const pause = state.Profile.pause;
   const play = state.Profile.play;
   return {
@@ -122,7 +119,7 @@ function mapStateToProps(state) {
     birthday,
     allSongs,
     playlist,
-    song,
+    currentSong,
     pause,
     play
   }
