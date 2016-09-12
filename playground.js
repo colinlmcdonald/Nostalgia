@@ -2,13 +2,18 @@
 var update = require('react-addons-update')
 
 module.exports = {
-  applySpotify: function(state, spotifySongs) {
+  applySpotify: function(state, spotifySongs, testing) {
   const matches = [];
   let song, billboardSong, spotifySong;
   let flag = false;
   for (let i = 0; i < state.allSongs.length; i++) {
     for (let j = 0; j < spotifySongs.length; j++) {
-      if (this.testArtistMatches(state.allSongs[i].artist && spotifySongs[j].tracks.items[0].artists[0].name) && this.testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
+      if (testing) {
+        console.log('artistMatch: ', this.testArtistMatches(state.allSongs[i].artist, spotifySongs[j].tracks.items[0].artists[0].name));
+        console.log('songMatch: ', this.testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name));
+      }
+      //the problem is that I'm using the first item when really i should be looping through all items to find the one that has the closest match to the song from billboard
+      if (this.testArtistMatches(state.allSongs[i].artist, spotifySongs[j].tracks.items[0].artists[0].name) && this.testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
         song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]})
         matches.push(song)
         flag = true;
@@ -34,6 +39,11 @@ testArtistMatches: function(a1, a2) {
 },
 
 testSongMatches: function(s1, s2) {
+  if (s1 === s2) {
+    return true;
+  }
+  console.log(s1, s2);
+
   var x = s1.split(' ');
   var y = s2.split(' ');
 

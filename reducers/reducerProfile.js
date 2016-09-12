@@ -69,7 +69,7 @@ export function applySpotify(state, spotifySongs) {
   console.log(spotifySongs);
   for (let i = 0; i < state.allSongs.length; i++) {
     for (let j = 0; j < spotifySongs.length; j++) {
-      if (testArtistMatches(state.allSongs[i].artist && spotifySongs[j].tracks.items[0].artists[0].name) && testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
+      if (testArtistMatches(state.allSongs[i].artist, spotifySongs[j].tracks.items[0].artists[0].name) && testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
         song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]})
         matches.push(song)
         flag = true;
@@ -96,6 +96,9 @@ export function testArtistMatches(a1 = '', a2 = '') {
 }
 
 export function testSongMatches(s1, s2) {
+  if (s1 === s2) {
+    return true;
+  }
   var x = s1.split(' ');
   var y = s2.split(' ');
 

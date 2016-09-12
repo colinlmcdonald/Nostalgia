@@ -4,7 +4,7 @@ var spotify = require('../data');
 var testSpotifySongs = require('../playground')
 
 describe('Server Helper Functions', () => {
-  it('longestWords should find the two longest words', () => {
+  xit('longestWords should find the two longest words', () => {
     var words = 'The computer doth protest too much';
     expect(cp.longestTwoWords(words)).toEqual('computer protest');
 
@@ -12,7 +12,7 @@ describe('Server Helper Functions', () => {
     expect(cp.longestTwoWords(words)).toEqual('These words');
   })
 
-  it('removeFeaturing should remove featuring and all other artist\'s', () => {
+  xit('removeFeaturing should remove featuring and all other artist\'s', () => {
     var artist = 'Twista Featuring Kanye West & Jamie Foxx';
 
     expect(cp.removeFeaturing(artist)).toEqual('Twista');
@@ -23,7 +23,7 @@ describe('Server Helper Functions', () => {
 })
 
 describe('Testing matching spotify and billboard songs', () => {
-  it('should match the snoop diggity dog', () => {
+  xit('should match the snoop diggity dog', () => {
     var snoop = spotify.filter(song => {
       var found = song.tracks.items.filter(item => {
         return item.name === 'Drop It Like It\'s Hot - Instrumental'
@@ -43,23 +43,80 @@ describe('Testing matching spotify and billboard songs', () => {
     expect(testSpotifySongs.applySpotify(snoop2, snoop)[0]).toEqual(snoop3);
   })
 
-  it('should match Nelly all hot up in herre', () => {
-    var snoop = spotify.filter(song => {
+  xit('should match Nelly all hot up in herre', () => {
+    var nelly = spotify.filter(song => {
       var found = song.tracks.items.filter(item => {
         return item.name === 'Dilemma'
       })
       return found.length
     })
-    var snoop2 = {
+    var nelly2 = {
       allSongs: [{
       song: 'Dilemma',
       artist: 'Nelly'
     }]}
-    // console.log(snoop);
-    var snoop3 = snoop[0].tracks.items[0];
-    snoop3.song = 'Dilemma';
-    snoop3.artist = 'Nelly';
-    testSpotifySongs.applySpotify(snoop2, snoop)
-    // expect(testSpotifySongs.applySpotify(snoop2, snoop)[0]).toEqual(snoop3);
+    var nelly3 = nelly[0].tracks.items[0];
+    nelly3.song = 'Dilemma';
+    nelly3.artist = 'Nelly';
+    testSpotifySongs.applySpotify(nelly2, nelly)
+    expect(testSpotifySongs.applySpotify(nelly2, nelly)[0]).toEqual(nelly3);
   })
+
+  xit('should NOT match how you remind me and u remind me', () => {
+    var nickelcrack = spotify.filter(song => {
+      var found = song.tracks.items.filter(item => {
+        return item.name === 'How You Remind Me';
+      })
+      return found.length
+    })
+    var nickelcrack2 = {
+      song: 'How You Remind Me',
+      artist: 'Nickelback'
+    }
+
+    var usher = spotify.filter(song => {
+      var found = song.tracks.items.filter(item => {
+        return item.name === 'U Remind Me';
+      })
+      return found.length
+    })
+    var usher2 = {
+      song: 'U Remind Me',
+      artist: 'Usher'
+    };
+    var usher3 = usher[0].tracks.items[0];
+    var nickelcrack3 = nickelcrack[0].tracks.items[0]
+    usher3.song = 'U Remind Me';
+    usher3.artist = 'Usher';
+    nickelcrack3.song = 'How You Remind Me';
+    nickelcrack3.artist = 'Nickelback';
+    var billboard = {};
+    var spotifySongs = [nickelcrack[0], usher[0]];
+    billboard.allSongs = [nickelcrack2, usher2];
+    // console.log(nickelcrack3, usher3);
+    expect(testSpotifySongs.applySpotify(billboard, spotifySongs)).toEqual([nickelcrack3, usher3]);
+  })
+
+  it('should match Ciara good eats', () => {
+    var ciara = spotify.reduce((start, song) => {
+      var found = song.tracks.items.filter(item => {
+        return item.name === 'Goodies'
+      })
+      if (found.length) {
+        start = found;
+      }
+      return start;
+    })
+    var ciara2 = {
+      allSongs: [{
+      song: 'Goodies',
+      artist: 'Ciara Featuring Petey Pablo'
+    }]}
+    var ciara3 = ciara[0];
+    ciara3.song = 'Goodies';
+    ciara3.artist = 'Ciara Featuring Petey Pablo';
+    // console.log(testSpotifySongs.applySpotify(ciara2, ciara));
+    expect(testSpotifySongs.applySpotify(ciara2, ciara, true)[0]).toEqual(ciara3);
+  })
+
 })
