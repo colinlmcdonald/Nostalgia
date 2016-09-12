@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 var Promise = require('bluebird');
+const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;
@@ -153,6 +154,10 @@ app.post('/create-playlist', (req, res) => {
 app.post('/check-songs', (req, res) => {
   cp.fetchSpotify(req.body)
     .then(songs => {
+      fs.writeFile('data.txt', songs, (err) => {
+        if (err) throw err;
+        console.log('saved baby');
+      })
       res.send(songs)
     })
 })

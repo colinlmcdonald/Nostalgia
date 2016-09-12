@@ -9,6 +9,7 @@ export function profile(state = {
   currentSong: '',
   play: false,
   pause: false,
+  spotify: false,
   allSongs: [],
   playlist: []
 }, action) {
@@ -65,9 +66,10 @@ export function applySpotify(state, spotifySongs) {
   const matches = [];
   let song, billboardSong, spotifySong;
   let flag = false;
+  console.log(spotifySongs);
   for (let i = 0; i < state.allSongs.length; i++) {
     for (let j = 0; j < spotifySongs.length; j++) {
-      if (testMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
+      if (testArtistMatches(state.allSongs[i].artist && spotifySongs[j].tracks.items[0].artists[0].name) && testSongMatches(state.allSongs[i].song, spotifySongs[j].tracks.items[0].name)) {
         song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]})
         matches.push(song)
         flag = true;
@@ -80,11 +82,20 @@ export function applySpotify(state, spotifySongs) {
     }
   }
   return Object.assign({}, state, {
-    allSongs: matches
+    allSongs: matches,
+    spotify: true
   })
 }
 
-export function testMatches(s1, s2) {
+export function testArtistMatches(a1 = '', a2 = '') {
+  var newA1 = a1.replace(/\W+/g, '');
+  var newA2 = a2.replace(/\W+/g, '');
+  var re = new RegExp(newA1);
+  var re2 = new RegExp(newA2);
+  return newA1.match(re2) || newA2.match(re) ? true : false
+}
+
+export function testSongMatches(s1, s2) {
   var x = s1.split(' ');
   var y = s2.split(' ');
 

@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router'
 import thunk from 'redux-thunk'
 import 'isomorphic-fetch'
 import '../public/styles.css'
+import '../node_modules/react-spinner/react-spinner.css'
 
 import Root from './root'
 import rootReducer from '../reducers/reducers'

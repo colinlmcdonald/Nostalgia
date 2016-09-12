@@ -1,3 +1,31 @@
+body { 
+  padding-top: 70px;
+  font-family: 'Helvetica';
+}
+
+.navbar {
+  background-color: black;
+  color: white;
+  font-size: 2em;
+  height: 70px;
+}
+
+#nostalgia {
+  float: left;
+  font-weight: bold;
+}
+
+.navbar-items {
+  float: right;
+  text-align: right;
+  margin-right: 20px;
+  font-size: 1em;
+}
+
+.btn {
+  color: white;
+}
+
 .song-container {
   display: flex;
   flex-direction: row;
@@ -36,10 +64,22 @@
   text-overflow: ellipsis;
 }
 
+.buttons-container {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+  display: flex;
+  flex-direction: row;
+  width: 0;
+}
+
 .fa {
   padding: 5px;
-  transition-duration: 2s;
-  opacity: 0;
+}
+
+.spinner-container {
+  width: 20px;
+  height: 20px;
+  margin-left: 18px;
 }
 
 .fa-play-circle {
@@ -63,9 +103,9 @@
   font-size: 20px;
 }
 
-.show {
-  opacity: 1;
-}
+/*.show {
+  visibility: visible;
+}*/
 
 #player {
   display: none;

@@ -76,19 +76,27 @@ export class App extends Component {
   }
 
   render() {
-    const {image, name, playlist, birthday, allSongs, currentSong, pause, play} = this.props
+    const {image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
     return (
       <div>
         <NavBar />
-        <h2>{name}</h2>
-        <img src={image} />
+        <div className='container'>
+          <div className='row'>
+          <div className='col-md-6 offset-md-3'>
+          <h2>Wasssupppp {name}</h2>
+          <img src={image} />
+          </div>
+        </div>
+        <div className='row'>
         {birthday ? <BirthdayDisplay birthday={birthday} convertDay={this.convertDay} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
-        <button onClick={() => this.handleHighSchool()}>Highschool</button>
-        <button onClick={() => this.handleMiddleSchool()}>Middleschool</button>
+        <button className='btn' onClick={() => this.handleHighSchool()}>Highschool</button>
+        <button className='btn' onClick={() => this.handleMiddleSchool()}>Middleschool</button>
+        </div>
+        </div>
         <div className='container'>
           <div className='row'>
             <div className='col-md-12'>
-              <Playlist tracks={allSongs} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay} currentSong={currentSong}/>
+              <Playlist tracks={allSongs} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay} currentSong={currentSong} spotify={spotify}/>
             </div>
           </div>
         </div>
@@ -112,6 +120,7 @@ function mapStateToProps(state) {
   const currentSong = state.Profile.currentSong;
   const pause = state.Profile.pause;
   const play = state.Profile.play;
+  const spotify = state.Profile.spotify;
   return {
     name,
     image,
@@ -121,7 +130,8 @@ function mapStateToProps(state) {
     playlist,
     currentSong,
     pause,
-    play
+    play,
+    spotify
   }
 };
 
