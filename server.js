@@ -154,7 +154,7 @@ app.post('/create-playlist', (req, res) => {
 app.post('/check-songs', (req, res) => {
   cp.fetchSpotify(req.body)
     .then(songs => {
-      fs.writeFile('data.txt', songs, (err) => {
+      fs.writeFile('data.txt', JSON.stringify(songs), 'utf8', (err) => {
         if (err) throw err;
         console.log('saved baby');
       })
