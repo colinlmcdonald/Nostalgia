@@ -60,7 +60,6 @@ describe('Testing matching spotify and billboard songs', () => {
     snoop3.song = 'Dilemma';
     snoop3.artist = 'Nelly';
     testSpotifySongs.applySpotify(snoop2, snoop)
-
     expect(testSpotifySongs.applySpotify(snoop2, snoop)[0]).toEqual(snoop3);
   })
 })

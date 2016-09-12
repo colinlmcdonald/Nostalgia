@@ -37,13 +37,12 @@
     "redux-thunk": "*",
     "style-loader": "^0.13.1",
     "webpack": "*",
+    "http-proxy": "*",
     "x-ray": "^2.3.0"
   },
   "devDependencies": {
     "enzyme": "^2.4.1",
     "expect": "^1.20.2",
-    "express": "*",
-    "http-proxy": "*",
     "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.2.1",
