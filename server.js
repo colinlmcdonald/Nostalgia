@@ -24,7 +24,7 @@ const proxy = httpProxy.createProxyServer({
 });
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect(config.MONGOD);
 
 const db = mongoose.connection;
 const User = require('./db/User.model.js');
