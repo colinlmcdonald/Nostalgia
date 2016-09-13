@@ -11,11 +11,16 @@ import { BirthdayDisplay }    from './BirthdayDisplay';
 import { BirthdayForm }       from './BirthdayForm';
 import ReactAudioPlayer       from './ReactAudioPlayer';
 
+//TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
+//TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
+//TODO: Outkast - Hey Ya & The Way You Move are matching for some reason
+
 export class App extends Component {
   constructor(props) {
     super(props);
     this.handleSongPlay = this.handleSongPlay.bind(this);
     this.handleSongPlaylist = this.handleSongPlaylist.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   
   componentDidMount() {

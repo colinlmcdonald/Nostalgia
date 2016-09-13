@@ -26,6 +26,7 @@ export function profile(state = {
         birthday: action.payload
       });
     case constants.RECEIVE_SCHOOL:
+    console.log(action.payload);
       return Object.assign({}, state, {
         allSongs: action.payload
       });
@@ -34,6 +35,7 @@ export function profile(state = {
     case constants.SPOTIFY_CHECK:
       return applySpotify(state, action.payload, action.original);
     case constants.ADD_SONG:
+    console.log(state);
       return Object.assign({}, state, {
         playlist: update(state.playlist, {$push: [action.payload]}),
         allSongs: update(state.allSongs, {$splice: [[action.i, 1, action.payload]]})
@@ -63,30 +65,30 @@ export function profile(state = {
 
 //Check to see if a song is on Spotify. If so, add the Spotify props to it so we can play a clip of the song, add it to a playlist, etc.
 export function applySpotify(state, spotifySongs, testing) {
-    const matches = [];
-    let song, billboardSong, spotifySong, billboardArtist, spotifyArtist, songName;
-    let flag = false;
-    for (let i = 0; i < state.allSongs.length; i++) {
-      for (let j = 0; j < spotifySongs.length; j++) {
-        if (testSongMatches(state.allSongs[i], spotifySongs[j].tracks.items)) {
-          song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]});
-          matches.push(song);
-          flag = true;
-        } 
-      }
-      if (flag) {
-        flag = false;
-      } else {
-        matches.push(state.allSongs[i]);
-      }
+  const matches = [];
+  let song, billboardSong, spotifySong, billboardArtist, spotifyArtist, songName;
+  let flag = false;
+  for (let i = 0; i < state.allSongs.length; i++) {
+    for (let j = 0; j < spotifySongs.length; j++) {
+      if (testSongMatches(state.allSongs[i], spotifySongs[j].tracks.items)) {
+        song = update(state.allSongs[i], {$merge: spotifySongs[j].tracks.items[0]});
+        matches.push(song);
+        flag = true;
+      } 
     }
-    return Object.assign({
-      allSongs: matches,
-      spotify: true
-    })
-  },
+    if (flag) {
+      flag = false;
+    } else {
+      matches.push(state.allSongs[i]);
+    }
+  }
+  return Object.assign({}, state, {
+    allSongs: matches,
+    spotify: true
+  })
+}
 
-testArtistMatches: function(a1, a2) {
+export function testArtistMatches(a1, a2) {
   if (!a1) a1 = '';
   if (!a2) a2 = '';
   var newA1 = a1.replace(/\W+/g, '');

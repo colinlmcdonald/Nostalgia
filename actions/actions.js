@@ -21,6 +21,7 @@ export function submitBirthday(bdayArr, id) {
     month: bdayArr[1],
     day: bdayArr[2]
   }
+  console.log(bday);
   return dispatch => {
     return fetch(`http://localhost:3000/user/${id}/birthday`, {
       method: 'POST',
