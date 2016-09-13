@@ -36,7 +36,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-// app.use(morgan('combined'))
 
 const client_id = config.CLIENT_ID;
 const redirect_uri = config.REDIRECT_URI;
@@ -154,10 +153,6 @@ app.post('/create-playlist', (req, res) => {
 app.post('/check-songs', (req, res) => {
   cp.fetchSpotify(req.body)
     .then(songs => {
-      fs.writeFile('data.txt', JSON.stringify(songs), 'utf8', (err) => {
-        if (err) throw err;
-        console.log('saved baby');
-      })
       res.send(songs)
     })
 })
