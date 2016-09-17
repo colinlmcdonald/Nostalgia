@@ -6,8 +6,7 @@ import { connect }            from 'react-redux';
 import * as actions           from '../../actions/actions';
 
 import { NavBar }             from './NavBar';
-import { BirthdayView }       from './BirthdayView';
-import { PlaylistView }       from './PlaylistView';
+import router                 from '../router';
 
 //TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
@@ -25,7 +24,6 @@ export class App extends Component {
     const { params, dispatch } = this.props;
     const id = params.id;
     dispatch(actions.getProfileInfo(id));
-    dispatch(actions.setCurrentRoute(<BirthdayView {...this.props}/>))
   }
 
   handleSubmit(e) {
@@ -84,7 +82,7 @@ export class App extends Component {
     return (
       <div>
         <NavBar />  
-        {currentRoute}
+        {router({...this.props})}
       </div>
     )
   }
