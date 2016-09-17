@@ -26,7 +26,6 @@ export function profile(state = {
         birthday: action.payload
       });
     case constants.RECEIVE_SCHOOL:
-    console.log(action.payload);
       return Object.assign({}, state, {
         allSongs: action.payload
       });
@@ -35,7 +34,6 @@ export function profile(state = {
     case constants.SPOTIFY_CHECK:
       return applySpotify(state, action.payload, action.original);
     case constants.ADD_SONG:
-    console.log(state);
       return Object.assign({}, state, {
         playlist: update(state.playlist, {$push: [action.payload]}),
         allSongs: update(state.allSongs, {$splice: [[action.i, 1, action.payload]]})

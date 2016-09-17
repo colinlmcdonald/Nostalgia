@@ -21,7 +21,6 @@ export function submitBirthday(bdayArr, id) {
     month: bdayArr[1],
     day: bdayArr[2]
   }
-  console.log(bday);
   return dispatch => {
     return fetch(`http://localhost:3000/user/${id}/birthday`, {
       method: 'POST',
@@ -142,5 +141,12 @@ export function pauseSong(payload, i) {
     type: constants.PAUSE_SONG,
     payload,
     i
+  }
+}
+
+export function setCurrentRoute(route) {
+  return {
+    type: constants.CHANGE_ROUTE,
+    payload: route
   }
 }

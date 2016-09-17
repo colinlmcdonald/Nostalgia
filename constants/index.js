@@ -6,3 +6,4 @@ export const ADD_SONG           = 'ADD_SONG';
 export const REMOVE_SONG        = 'REMOVE_SONG';
 export const PLAY_SONG          = 'PLAY_SONG';
 export const PAUSE_SONG         = 'PAUSE_SONG';
+export const CHANGE_ROUTE       = 'CHANGE_ROUTE';

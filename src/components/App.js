@@ -6,10 +6,8 @@ import { connect }            from 'react-redux';
 import * as actions           from '../../actions/actions';
 
 import { NavBar }             from './NavBar';
-import { Playlist }           from './Playlist';
-import { BirthdayDisplay }    from './BirthdayDisplay';
-import { BirthdayForm }       from './BirthdayForm';
-import ReactAudioPlayer       from './ReactAudioPlayer';
+import { BirthdayView }       from './BirthdayView';
+import { PlaylistView }       from './PlaylistView';
 
 //TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
@@ -27,6 +25,7 @@ export class App extends Component {
     const { params, dispatch } = this.props;
     const id = params.id;
     dispatch(actions.getProfileInfo(id));
+    dispatch(actions.setCurrentRoute(<BirthdayView {...this.props}/>))
   }
 
   handleSubmit(e) {
@@ -81,41 +80,18 @@ export class App extends Component {
   }
 
   render() {
-    const {image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
+    const {currentRoute, image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
     return (
       <div>
-        <NavBar />
-        <div className='container'>
-          <div className='row'>
-          <div className='col-md-6 offset-md-3'>
-          <h2>Wasssupppp {name}</h2>
-          <img src={image} />
-          </div>
-        </div>
-        <div className='row'>
-        {birthday ? <BirthdayDisplay birthday={birthday} convertDay={this.convertDay} /> : <BirthdayForm handleSubmit={this.handleSubmit} />}
-        <button className='btn' onClick={() => this.handleHighSchool()}>Highschool</button>
-        <button className='btn' onClick={() => this.handleMiddleSchool()}>Middleschool</button>
-        </div>
-        </div>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-12'>
-              <Playlist tracks={allSongs} handleSongPlaylist={this.handleSongPlaylist} handleSongPlay={this.handleSongPlay} currentSong={currentSong} spotify={spotify}/>
-            </div>
-          </div>
-        </div>
-        {/* TODO: Create playlist button */}
-        <button onClick={() => this.createPlaylist()}>Create Playlist</button>
-        <div id='player'>
-          <ReactAudioPlayer src={currentSong} autoPlay='false' pause={pause} play={play}/>
-        </div>
+        <NavBar />  
+        {currentRoute}
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
+  const currentRoute = state.Routes.currentRoute;
   const name = state.Profile.name;
   const image = state.Profile.image;
   const id = state.Profile.id;
@@ -136,7 +112,8 @@ function mapStateToProps(state) {
     currentSong,
     pause,
     play,
-    spotify
+    spotify,
+    currentRoute
   }
 };
 

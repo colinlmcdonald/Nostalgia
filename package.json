@@ -20,6 +20,7 @@
     "css-loader": "^0.23.1",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
+    "http-proxy": "*",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.14.1",
     "mongoose": "^4.5.6",
@@ -31,13 +32,12 @@
     "react-audio-player": "^0.2.5",
     "react-dom": "*",
     "react-redux": "*",
-    "react-router": "*",
+    "react-router": "^2.8.1",
     "react-spinner": "^0.2.6",
     "redux": "*",
     "redux-thunk": "*",
     "style-loader": "^0.13.1",
     "webpack": "*",
-    "http-proxy": "*",
     "x-ray": "^2.3.0"
   },
   "devDependencies": {
