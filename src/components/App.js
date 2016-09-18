@@ -82,7 +82,7 @@ export class App extends Component {
     return (
       <div>
         <NavBar />  
-        {router({...this.props})}
+        {router({...this.props}, handleSongPlay, handleSongPlaylist)}
       </div>
     )
   }
