@@ -42,7 +42,7 @@ const redirect_uri = config.REDIRECT_URI;
 const client_secret = config.SECRET;
 
 app.get('/login', (req, res) => {
-  const scope = 'user-read-private user-read-email';
+  const scope = 'user-read-private user-read-email playlist-modify-public';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -103,7 +103,7 @@ app.get('/user/:id/profile', (req, res) => {
   User.findOne({id: req.params.id}, (err, user) => {
     return fetch('https://api.spotify.com/v1/me', {
         headers: {
-          Authorization: 'Bearer ' + user.access_token
+          Authorization: `Bearer ${user.access_token}`
         }
       })
     .then(profile => profile.json())
@@ -124,7 +124,12 @@ app.post('/user/:id/birthday', (req, res) => {
 });
 
 app.post('/generate-playlist', (req, res) => {
-  const years = req.body;
+  const year = parseInt(req.body.year);
+  const start = year + 14;
+  const years = [];
+  for (var i = start; i < start + 4; i++) {
+    years.push(i);
+  };
   Promise.map(years, year => {
     return new Promise(resolve => {
       x(`http://www.billboard.com/archive/charts/${year}/hot-100`, 'tbody', [{
@@ -147,7 +152,42 @@ app.post('/generate-playlist', (req, res) => {
 });
 
 app.post('/create-playlist', (req, res) => {
-
+  console.log('8888888888888 ============== DDDDDDDDDDD');
+  const id = req.body.id;
+  const playlist = req.body.playlist;
+  User.findOne({id}, (err, user) => {
+    return fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.access_token}`
+      },
+      body: JSON.stringify({
+        name: 'Nostalgia Highschool Playlist'
+      })
+    })
+    .then(result => result.json())
+    .then(spotifyPlaylist => {
+      const playlistURIs = {};
+      playlist.forEach(song => {
+        if (song.uri) {
+          playlistURIs[song.uri] = true;
+        }
+      });
+      return fetch(`https://api.spotify.com/v1/users/${id}/playlists/${spotifyPlaylist.id}/tracks`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.access_token}`
+        },
+        body: JSON.stringify({
+          uris: Object.keys(playlistURIs)
+        })
+      })
+    })
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+  })
 })
 
 app.post('/check-songs', (req, res) => {

@@ -58,5 +58,9 @@ module.exports = {
         .then(response => response.json())
         .then(song => song)
     })
+  },
+
+  createSpotifyPlaylist(playlist) {
+    
   }
 };

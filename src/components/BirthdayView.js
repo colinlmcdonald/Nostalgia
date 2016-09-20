@@ -2,7 +2,7 @@ import React                  from 'react';
 import { BirthdayDisplay }    from './BirthdayDisplay';
 import { BirthdayForm }       from './BirthdayForm';
 
-export const BirthdayView = ({name, image, birthday, handleSubmit}) => (
+export const BirthdayView = ({name, image, birthday, handleBirthdaySubmit}) => (
   <div className='container'>
     <div className='row'>
       <div className='col-md-6 offset-md-3'>
@@ -11,7 +11,7 @@ export const BirthdayView = ({name, image, birthday, handleSubmit}) => (
       </div>
     </div>
     <div className='row'>
-      {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleSubmit={handleSubmit} />}
+      {birthday ? <BirthdayDisplay birthday={birthday} /> : <BirthdayForm handleBirthdaySubmit={handleBirthdaySubmit} />}
     </div>
   </div>
 )

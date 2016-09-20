@@ -7,6 +7,7 @@ export function getProfileInfo(id) {
       .then(json => {
         if (json.birthday) {
           dispatch(setCurrentRoute('PlaylistView'))
+          dispatch(getSchoolPlaylist(json.birthday.year))
         } else {
           dispatch(setCurrentRoute('BirthdayView'))
         }
@@ -48,14 +49,14 @@ export function processBirthday(payload) {
   }
 }
 
-export function getSchoolPlaylist(years) {
+export function getSchoolPlaylist(year) {
   return dispatch => {
     return fetch(`http://localhost:3000/generate-playlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(years)
+      body: JSON.stringify({year})
     })
     .then(res => res.json())
     .then(json => dispatch(processSchoolPlaylist(json, dispatch)))
@@ -87,9 +88,18 @@ export function replaceTrack(payload, i) {
   }
 }
 
-export function createPlaylist(playlist) {
+export function createPlaylist(playlist, id) {
   return dispatch => {
-    fetch()
+    fetch('http://localhost:3000/create-playlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        playlist,
+        id
+      })
+    })
   }
 }
 
