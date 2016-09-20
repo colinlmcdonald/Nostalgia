@@ -22,8 +22,21 @@ body {
   font-size: 1em;
 }
 
-.btn {
+.button-container {
+  margin: 4vw;
+}
+
+.playlist-button {
+  text-align: center;
+  background-color: black;
   color: white;
+  font-size: calc(100% + 10px);
+  width: 100%;
+}
+
+.playlist-button:hover {
+  background-color: white;
+  color: black;
 }
 
 .song-container {

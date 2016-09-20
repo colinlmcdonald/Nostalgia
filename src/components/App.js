@@ -70,7 +70,7 @@ export class App extends Component {
   }
 
   render() {
-    const {currentRoute, image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
+    const {playlistPending, playlistSuccess, currentRoute, image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
     return (
       <div>
         <NavBar />  
@@ -92,6 +92,8 @@ function mapStateToProps(state) {
   const pause = state.Profile.pause;
   const play = state.Profile.play;
   const spotify = state.Profile.spotify;
+  const playlistSuccess = state.Profile.playlistSuccess;
+  const playlistPending = state.Profile.playlistPending;
   return {
     name,
     image,
@@ -103,7 +105,9 @@ function mapStateToProps(state) {
     pause,
     play,
     spotify,
-    currentRoute
+    currentRoute,
+    playlistSuccess,
+    playlistPending
   }
 };
 

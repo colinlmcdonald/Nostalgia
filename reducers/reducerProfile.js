@@ -10,6 +10,8 @@ export function profile(state = {
   play: false,
   pause: false,
   spotify: false,
+  playlistPending: false,
+  playlistSuccess: false,
   allSongs: [],
   playlist: []
 }, action) {
@@ -56,6 +58,16 @@ export function profile(state = {
         pause: true,
         allSongs: update(state.allSongs, {[action.i]: {isPlaying: {$set: false}}})
       });
+    case constants.CREATE_PLAYLIST_SUCCESS:
+      return Object.assign({}, state, {
+        playlistSuccess: true,
+        playlistPending: false
+      })
+    case constants.CREATE_PLAYLIST_PENDING:
+      return Object.assign({}, state, {
+        playlistSuccess: false,
+        playlistPending: true
+      })
     default:
       return state
   };

@@ -56,27 +56,31 @@ export function getSchoolPlaylist(year) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({year})
+      body: JSON.stringify({
+        year
+      })
     })
     .then(res => res.json())
-    .then(json => dispatch(processSchoolPlaylist(json, dispatch)))
+    .then(json => {
+      const songs = [];
+      //Payload comes back as object from server with Artists as keys and Tracks as values
+      for (var key in json) {
+        songs.push({
+          song: key,
+          artist: json[key]
+        })
+      }
+      //Load the song list while we wait to see if they are actually on Spotify
+      dispatch(checkIfSongsOnSpotify(songs, json))
+      dispatch(processSchoolPlaylist(songs))
+    })
   }
 }
 
-export function processSchoolPlaylist(payload, dispatch) {
-  const songs = [];
-  //Payload comes back as object from server with Artists as keys and Tracks as values
-  for (var key in payload) {
-    songs.push({
-      song: key,
-      artist: payload[key]
-    })
-  }
-  //Load the song list while we wait to see if they are actually on Spotify
-  dispatch(checkIfSongsOnSpotify(songs, payload))
+export function processSchoolPlaylist(payload) {
   return {
     type: constants.RECEIVE_SCHOOL,
-    payload: songs
+    payload
   }
 }
 
@@ -90,7 +94,8 @@ export function replaceTrack(payload, i) {
 
 export function createPlaylist(playlist, id) {
   return dispatch => {
-    fetch('http://localhost:3000/create-playlist', {
+    dispatch(createPlaylistPending());
+    return fetch('http://localhost:3000/create-playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -100,12 +105,26 @@ export function createPlaylist(playlist, id) {
         id
       })
     })
+    .then(res => res.json())
+    .then(json => dispatch(processCreatePlaylist()))
+  }
+}
+
+export function processCreatePlaylist() {
+  return {
+    type: constants.CREATE_PLAYLIST_SUCCESS
+  }
+}
+
+export function createPlaylistPending() {
+  return {
+    type: constants.CREATE_PLAYLIST_PENDING
   }
 }
 
 export function checkIfSongsOnSpotify(songs) {
   return dispatch => {
-    fetch('http://localhost:3000/check-songs', {
+    return fetch('http://localhost:3000/check-songs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -161,9 +180,9 @@ export function pauseSong(payload, i) {
   }
 }
 
-export function setCurrentRoute(route) {
+export function setCurrentRoute(payload) {
   return {
     type: constants.CHANGE_ROUTE,
-    payload: route
+    payload
   }
 }
