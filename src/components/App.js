@@ -9,6 +9,7 @@ import { NavBar }             from './NavBar';
 import { Router }             from '../router';
 
 //TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
+//TODO: undefined:1 Uncaught (in promise) h {family: "FontAwesome", style: "normal", weight: "normal", stretch: "normal"} -- seen this twice now
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
 //TODO: Outkast - Hey Ya & The Way You Move are matching for some reason
 //TODO: Add browser's back button functionality
@@ -94,6 +95,7 @@ function mapStateToProps(state) {
   const spotify = state.Profile.spotify;
   const playlistSuccess = state.Profile.playlistSuccess;
   const playlistPending = state.Profile.playlistPending;
+  console.log(state);
   return {
     name,
     image,
