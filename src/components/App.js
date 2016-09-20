@@ -6,7 +6,7 @@ import { connect }            from 'react-redux';
 import * as actions           from '../../actions/actions';
 
 import { NavBar }             from './NavBar';
-import router                 from '../router';
+import { router }              from '../router';
 
 //TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
@@ -62,16 +62,6 @@ export class App extends Component {
     dispatch(actions.getSchoolPlaylist(highschool, id));
   }
 
-  handleMiddleSchool() {
-    const { dispatch, birthday, id } = this.props;
-    const start = parseInt(birthday.year) + 12;
-    const middleschool = [];
-    for (var i = start; i < start + 4; i++) {
-      middleschool.push(i);
-    };
-    dispatch(actions.getSchoolPlaylist(middleschool, id));
-  }
-
   createPlaylist() {
     const { dispatch, playlist } = this.props
     dispatch(actions.createPlaylist(playlist))
@@ -82,7 +72,7 @@ export class App extends Component {
     return (
       <div>
         <NavBar />  
-        {router({...this.props}, handleSongPlay, handleSongPlaylist)}
+        {router({...this.props}, this.handleSongPlay, this.handleSongPlaylist, this.handleMiddleSchool)}
       </div>
     )
   }
