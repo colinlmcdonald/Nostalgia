@@ -100,6 +100,7 @@ app.get('/user/:id', (req, res) => {
 });
 
 app.get('/user/:id/profile', (req, res) => {
+  console.log('/user/:id/profile', req.params)
   User.findOne({id: req.params.id}, (err, user) => {
     return fetch('https://api.spotify.com/v1/me', {
         headers: {

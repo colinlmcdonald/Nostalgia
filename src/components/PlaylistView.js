@@ -34,13 +34,13 @@ export class PlaylistView extends Component {
       return <div>
         <div className='container'>
           <div className='button-container row'>
-            {/*<div className='col-md-4 offset-md-2'>
+            <div className='col-md-4 offset-md-2'>
               {this.props.playlistPending && this.state.selected ? 
                 <div className='spinner-container'><Spinner /></div> 
                 : this.state.selected && this.props.playlistSuccess ? 
                   <p className='playlist-success-msg'>Congratulations! Your playlist has saved. You can find it under 'Nostalgia Highschool'.</p> 
-                  : this.state.selected && !this.props.playlistSuccess && !this.props.playlistPending ? <p className='playlist-error-msg'>Bummer! Your playlist has NOT been saved. Please try again.</p> : <button className='playlist-button' onClick={(e) => this.createPlaylist(e, selected)}>Add Selected Songs</button>}
-            </div>*/}
+                  : this.state.selected && !this.props.playlistSuccess && !this.props.playlistPending ? <p className='playlist-error-msg'>Bummer! Your playlist has NOT been saved. Please try again.</p> : <button className='playlist-button' onClick={(e) => this.createPlaylist(e, 'selected')}>Add Selected Songs</button>}
+            </div>
             <div className='col-md-4'>
               {this.props.playlistPending && this.state.allSongs ? 
                 <div className='spinner-container'><Spinner /></div> 

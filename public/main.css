@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+#splash-page-img-container {
+  height: 100%;
+}
+
+#splash-page-img {
+  height: 100%;
+  color: white;
+  text-align: center;
+}
+
+#splash-page-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+#header {
+  font-size: 140px;
+  flex: 9;
+}
+
+#description-container {
+  flex: 1;
+}
+
+.description {
+  font-size: 36px;
+}
+
+#splash-page-arrow {
+  color: white;
+  font-size: 72px;
+  width: 20%;
+}
+
+#splash-page-arrow:hover {
+  color: black;
+}
+
+#text-container {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#spotify-login-btn {
+  margin-top: 1%;
+  margin-left: 45%;
+  margin-right: 45%;
+}

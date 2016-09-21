@@ -12,9 +12,14 @@ import { Router }             from '../router';
 //TODO: undefined:1 Uncaught (in promise) h {family: "FontAwesome", style: "normal", weight: "normal", stretch: "normal"} -- seen this twice now
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
 //TODO: Outkast - Hey Ya & The Way You Move are matching for some reason
+//TODO: Style front page--back picture random 90s bands gif
+//TODO: Test & fix birthday page
+//TODO: Use refresh token--create helper function and get refresh token before requesting any information
 //TODO: Add browser's back button functionality
 //TODO: Remove react-router
+//TODO: Test error handling
 //TODO: Add D3 graph to show how song's popularity has changed
+//TODO: Implement sessions to save users
 
 export class App extends Component {
   constructor(props) {
@@ -71,7 +76,6 @@ export class App extends Component {
   }
 
   render() {
-    const {playlistPending, playlistSuccess, currentRoute, image, name, playlist, birthday, allSongs, currentSong, pause, play, spotify} = this.props
     return (
       <div>
         <NavBar />  
@@ -95,7 +99,7 @@ function mapStateToProps(state) {
   const spotify = state.Profile.spotify;
   const playlistSuccess = state.Profile.playlistSuccess;
   const playlistPending = state.Profile.playlistPending;
-  console.log(state);
+  const playlistError = state.Profile.playlistError;
   return {
     name,
     image,
@@ -109,7 +113,8 @@ function mapStateToProps(state) {
     spotify,
     currentRoute,
     playlistSuccess,
-    playlistPending
+    playlistPending,
+    playlistError
   }
 };
 

@@ -2,23 +2,30 @@
 <html>
 <head>
   <title>Nostgalgia</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
 <body>
-<div class='header-container'>
-  <h1>Welcome to Nostalgia.</h1>
-    <p>Relive high school, I promise it's not that bad!</p>
-    <p>To get started, please login with your Spotify account</p>
-</div>
-  <button id='spotify_login'>Spotify</button>
+  <div id='splash-page-img-container'>
+    <div id='splash-page-img'>
+      <div id='splash-page-text-container'>
+        <h1 id='header'>Welcome to Nostalgia.</h1>
+        <div id='description-container'>
+          <a href='#spotify-login'><i id='splash-page-arrow' class='fa fa-angle-down'></i></a>
+        </div>
+      </div>
+    </div>
+      <div id='text-container'>
+        <div id='spotify-login'>
+          <span class='description'>To get started, please login with your Spotify account:</span>
+          <button id='spotify-login-btn'>Spotify</button>
+        </div>
+      </div>
+  </div>
 
-<script>
-  var el = document.getElementById('spotify_login');
-  el.onclick = function() {
-    window.location.href = '//localhost:3000/login'
-  }
-</script>
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<script src='js/splash-page.js'></script>
 </body>
 </html>
