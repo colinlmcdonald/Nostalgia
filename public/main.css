@@ -43,10 +43,12 @@ html, body {
   color: black;
 }
 
-#text-container {
+.text-container {
   height: 100%;
+  text-align: center;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #spotify-login-btn {

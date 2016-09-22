@@ -153,7 +153,6 @@ app.post('/generate-playlist', (req, res) => {
 });
 
 app.post('/create-playlist', (req, res) => {
-  console.log('8888888888888 ============== DDDDDDDDDDD');
   const id = req.body.id;
   const playlist = req.body.playlist;
   User.findOne({id}, (err, user) => {

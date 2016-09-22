@@ -30,7 +30,6 @@ export class PlaylistView extends Component {
     }
 
     render() {
-        console.log(this.state);
       return <div>
         <div className='container'>
           <div className='button-container row'>
@@ -49,11 +48,7 @@ export class PlaylistView extends Component {
                   : this.state.allSongs && !this.props.playlistSuccess && !this.props.playlistPending ? <p className='playlist-error-msg'>Bummer! Your playlist has NOT been saved. Please try again.</p> : <button className='playlist-button' onClick={(e) => this.createPlaylist(e)}>Add All Songs</button>}
             </div>
           </div>
-          <div className='row'>
-            <div className='col-md-12'>
-              <Playlist tracks={this.props.allSongs} handleSongPlaylist={this.props.handleSongPlaylist} handleSongPlay={this.props.handleSongPlay} currentSong={this.props.currentSong} spotify={this.props.spotify}/>
-            </div>
-          </div>
+            <Playlist tracks={this.props.allSongs} handleSongPlaylist={this.props.handleSongPlaylist} handleSongPlay={this.props.handleSongPlay} currentSong={this.props.currentSong} spotify={this.props.spotify}/>
         </div>
         <div id='player'>
           <ReactAudioPlayer src={this.props.currentSong} autoPlay='false' pause={this.props.pause} play={this.props.play}/>

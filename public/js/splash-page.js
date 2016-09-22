@@ -6,9 +6,6 @@ $(function() {
   var gifs2 = [];
   var setBackgroundImage = function() {
     var randomIndex = Math.floor(Math.random() * gifs.length);
-    console.log('randomIndex', randomIndex);
-    console.log('gifs.length', gifs.length);
-    console.log('gifs2.length', gifs2.length);
     if (!gifs.length) {
       gifs = gifs2.splice(0)
     }

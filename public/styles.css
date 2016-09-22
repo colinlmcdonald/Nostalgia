@@ -32,17 +32,20 @@ body {
   color: white;
   font-size: calc(100% + 10px);
   width: 100%;
+  border: solid white 2px;
 }
 
 .playlist-button:hover {
   background-color: white;
   color: black;
+  border: black solid 2px;
 }
 
 .song-container {
   display: flex;
   flex-direction: row;
   padding-top: 4px;
+  width: 100%;
 }
 
 .song-container:hover {
@@ -52,28 +55,23 @@ body {
 .song-name-album-container {
   display: flex;
   flex-direction: column;
-}
-
-.artist-song-number {
-  font-size: 16px;
-  color: gray;
-  text-align: center;
-  width: 45px;
-  line-height: 35px;
+  flex: 3;
+  min-width: 0;
 }
 
 .artist-song {
-  margin-bottom: 0px;
-  font-size: 16px;
-  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  width: 300px;
+  text-overflow: ellipsis;
+  margin-bottom: 0px;
+  font-size: 16px;
 }
 
 .artist {
   color: gray;
   font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -82,7 +80,7 @@ body {
   transition: opacity 2s ease-in;
   display: flex;
   flex-direction: row;
-  width: 0;
+  flex: 1;
 }
 
 .fa {
