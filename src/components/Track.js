@@ -9,10 +9,15 @@ export const Track = ({track, i, handleSongPlaylist, handleSongPlay, currentSong
         <p className='artist-song'>{track.song}</p>
         <p className='artist'>{track.artist}</p>
       </div>
-      <div style={track.name ? {width: 'auto', opacity: 1} : null} className='buttons-container'>
-      <PlayButton track={track} i={i} handleSongPlay={handleSongPlay} currentSong={currentSong}/>
-      <PlusButton track={track} i={i} handleSongPlaylist={handleSongPlaylist} />
-      </div> 
-      {!spotify ? <div className='spinner-container'><Spinner /></div> : null}
+      {track.album ? 
+        <div className='album-img'>
+          <img src={track.album.images[1].url} /> 
+            <PlusButton track={track} i={i} handleSongPlaylist={handleSongPlaylist} />
+        </div>
+        : null}
     </div>
 )
+      // <div style={track.name ? {width: 'auto', opacity: 1} : null} className='buttons-container'>
+      // <PlayButton track={track} i={i} handleSongPlay={handleSongPlay} currentSong={currentSong}/>
+      // </div> 
+      // {!spotify ? <div className='spinner-container'><Spinner /></div> : null}

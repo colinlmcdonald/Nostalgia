@@ -1,6 +1,19 @@
+html {
+  height: 100%;
+}
+
 body { 
   padding-top: 70px;
   font-family: 'Helvetica';
+  height: 100%;
+}
+
+#app {
+  height: 100%
+}
+
+.wrapper {
+  height: 100%;
 }
 
 .navbar {
@@ -20,6 +33,12 @@ body {
   text-align: right;
   margin-right: 20px;
   font-size: 1em;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .button-container {
@@ -43,20 +62,59 @@ body {
 
 .song-container {
   display: flex;
-  flex-direction: row;
-  padding-top: 4px;
-  width: 100%;
-}
-
-.song-container:hover {
-  font-weight: bold;
+  flex-direction: column;
+  padding: 8px;
+  width: 400px;
 }
 
 .song-name-album-container {
   display: flex;
   flex-direction: column;
-  flex: 3;
-  min-width: 0;
+  flex: 1;
+}
+
+.album-img {
+  flex: 4;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  z-index: 0;
+}
+
+.album-img img {
+  height: auto;
+  opacity: 1;
+  flex: 1 0 100%;
+  z-index: 0;
+}
+
+.plus-button-container {
+  background-color: rgba(0, 0, 0, 0);
+  flex: 1 0 100%;
+  z-index: 1;
+  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.3s ease-in;
+}
+
+.plus-button-container .fa {
+  padding: 0;
+  font-size: 120px;
+  opacity: 0;
+  color: white;
+  transition: opacity 0.5s ease-in;
+}
+
+.plus-button-container:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.plus-button-container:hover .fa {
+  opacity: 1;
 }
 
 .artist-song {
@@ -64,15 +122,16 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 0px;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .artist {
   color: gray;
-  font-size: 10px;
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0;
 }
 
 .buttons-container {
@@ -87,10 +146,21 @@ body {
   padding: 5px;
 }
 
+.spinner-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+.spinner-flex .react-spinner {
+  width: 100px;
+  height: 100px;
+}
+
 .spinner-container {
   width: 20px;
   height: 20px;
-  margin-left: 18px;
 }
 
 .fa-play-circle {

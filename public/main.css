@@ -30,7 +30,7 @@ html, body {
 }
 
 .description {
-  font-size: 36px;
+  font-size: 24px;
 }
 
 #splash-page-arrow {
@@ -52,7 +52,4 @@ html, body {
 }
 
 #spotify-login-btn {
-  margin-top: 1%;
-  margin-left: 45%;
-  margin-right: 45%;
 }

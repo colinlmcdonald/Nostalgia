@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 var Promise = require('bluebird');
 const fs = require('fs');
+const http = require('http');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;

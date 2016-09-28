@@ -6,7 +6,6 @@ export const NavBar = () => (
       <div className='row'>
         <div className='' id='nostalgia'>Nostalgia</div>
         <div className='navbar-items'>Profile</div>
-        <div className='navbar-items'>Logout</div>
       </div>
     </div>
   </nav>
