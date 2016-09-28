@@ -101,7 +101,6 @@ app.get('/user/:id', (req, res) => {
 });
 
 app.get('/user/:id/profile', (req, res) => {
-  console.log('/user/:id/profile', req.params)
   User.findOne({id: req.params.id}, (err, user) => {
     return fetch('https://api.spotify.com/v1/me', {
         headers: {
@@ -110,8 +109,28 @@ app.get('/user/:id/profile', (req, res) => {
       })
     .then(profile => profile.json())
     .then(json => {
-      json.birthday = user.birthday;
-      res.send(json);
+      if (json.error.message === 'The access token expired') {
+        fetch('https://accounts.spotify.com/api/token?' + querystring.stringify({
+          grant_type: 'refresh_token',
+          refresh_token: user.refresh_token
+          
+        }), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+          }
+        })
+        .then(res => res.json())
+        .then(json => {
+          json.birthday = user.birthday;
+          console.log(json);
+          res.send(json);
+        })
+      } else {
+        json.birthday = user.birthday;
+        res.send(json);
+      }
     });
   });
 });
@@ -156,6 +175,7 @@ app.post('/generate-playlist', (req, res) => {
 app.post('/create-playlist', (req, res) => {
   const id = req.body.id;
   const playlist = req.body.playlist;
+  console.log('8888888', id);
   User.findOne({id}, (err, user) => {
     return fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
       method: 'POST',

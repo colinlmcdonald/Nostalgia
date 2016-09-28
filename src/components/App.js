@@ -105,7 +105,7 @@ function mapStateToProps(state) {
   const playlistSuccess = state.Profile.playlistSuccess;
   const playlistPending = state.Profile.playlistPending;
   const playlistError = state.Profile.playlistError;
-  console.log(allSongs);
+  console.log(id);
   return {
     name,
     image,
