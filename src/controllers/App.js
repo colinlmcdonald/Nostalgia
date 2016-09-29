@@ -5,12 +5,10 @@ import { connect }            from 'react-redux';
 
 import { actions }            from '../../actions/index';
 
-import { NavBar }             from './NavBar';
+import { NavBar }             from '../components/NavBar';
 import { Router }             from '../router';
-import Spinner                from 'react-spinner';
 
 //TODO: Birthday displays weird after submitting and this is the url that displays after: http://localhost:3000/user/1254018841?birthday=1987-10-25
-//TODO: undefined:1 Uncaught (in promise) h {family: "FontAwesome", style: "normal", weight: "normal", stretch: "normal"} -- seen this twice now
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
 //TODO: Outkast - Hey Ya & The Way You Move are matching for some reason
 //TODO: Test & fix birthday page
@@ -78,11 +76,7 @@ export class App extends Component {
     const { allSongs } = this.props;
     return (
       <div className='wrapper'>
-        <NavBar />  
-        {allSongs.length ? <Router {...this.props} handleSongPlay={this.handleSongPlay} handleSongPlaylist={this.handleSongPlaylist} handleBirthdaySubmit={this.handleBirthdaySubmit} createAllSongsPlaylist={this.createAllSongsPlaylist} createSelectedPlaylist={this.createSelectedPlaylist}/> 
-        : <div className='spinner-flex'>
-            <div className='spinner-container'><Spinner /></div>
-          </div>}
+        <Router {...this.props} handleSongPlay={this.handleSongPlay} handleSongPlaylist={this.handleSongPlaylist} handleBirthdaySubmit={this.handleBirthdaySubmit} createAllSongsPlaylist={this.createAllSongsPlaylist} createSelectedPlaylist={this.createSelectedPlaylist}/>
       </div>
     )
   }

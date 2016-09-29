@@ -39,7 +39,10 @@ export function submitBirthday(bdayArr, id) {
       body: JSON.stringify(bday)
     })
     .then(res => res.json())
-    .then(json => dispatch(processBirthday(json)))
+    .then(json => {
+      dispatch(getProfileInfo(id))
+      dispatch(processBirthday(json))
+    })
   }
 }
 

@@ -4,8 +4,6 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 
 var config = {
-
-  // We change to normal source mapping
   devtool: 'source-map',
   entry: './src/index.js',
   output: {
@@ -28,12 +26,14 @@ var config = {
         loader: 'babel?presets[]=react,presets[]=es2015',
         exclude: '/node_modules'
       },
-      //This converts our .css into JS
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
       }
-      // { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
+      {
+        test: /\.jpg$/, 
+        loader: 'url-loader?limit=8192' 
+      }
     ]
   },
 

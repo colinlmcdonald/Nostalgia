@@ -3,7 +3,7 @@ html {
 }
 
 body { 
-  padding-top: 70px;
+  /*padding-top: 70px;*/
   font-family: 'Helvetica';
   height: 100%;
 }
@@ -20,7 +20,8 @@ body {
   background-color: black;
   color: white;
   font-size: 2em;
-  height: 70px;
+  height: 100px;
+  padding-top: 20px;
 }
 
 #nostalgia {
@@ -40,17 +41,60 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: row;
+  margin-top: calc(5% + 100px);
+}
+
+.birthday-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: black;
+  color: white;
+  justify-content: center;
+}
+
+.birthday-header-container {
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.birthday-header {
+  font-size: 124px;
+  text-align: center;
+}
+
+.birthday-form-container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.birthday-form {
+  flex: 8;
+}
+
+.birthday-direction {
+  font-size: 24px;
+  flex: 2;
+  margin-top: 15px;
 }
 
 .button-container {
-  margin: 4vw;
+  /*margin: 4vw;*/
 }
 
 .playlist-button {
   text-align: center;
   background-color: black;
   color: white;
-  font-size: calc(100% + 10px);
+  /*font-size: calc(100% + 10px);*/
   width: 100%;
   border: solid white 2px;
 }
@@ -83,7 +127,7 @@ body {
   flex: 9;
 }
 
-.album-img {
+.album-img-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -92,10 +136,21 @@ body {
   z-index: 0;
 }
 
-.album-img img {
+.album-img {
   opacity: 1;
   flex: 1 0 100%;
   z-index: 0;
+}
+
+.album-img-container .spinner-container {
+  align-self: center;
+  margin: auto;
+}
+
+.no-image {
+  opacity: 1;
+  flex: 1;
+  width: 100%;
 }
 
 .play-button-container {
@@ -161,10 +216,6 @@ body {
   font-size: 36px;
 }
 
-.fa {
-  /*padding: 5px;*/
-}
-
 .spinner-flex {
   display: flex;
   flex-direction: row;
@@ -202,10 +253,6 @@ body {
 .fa-check {
   font-size: 20px;
 }
-
-/*.show {
-  visibility: visible;
-}*/
 
 #player {
   display: none;

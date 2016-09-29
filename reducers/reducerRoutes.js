@@ -1,7 +1,7 @@
 import * as constants   from '../constants/index'
 
 export function routes (state = {
-  routes: []
+  currentRoute: ''
 }, action) {
   switch(action.type) {
     case constants.CHANGE_ROUTE: {

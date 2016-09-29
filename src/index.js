@@ -1,19 +1,23 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
-import { browserHistory } from 'react-router'
-import thunk from 'redux-thunk'
-import 'isomorphic-fetch'
-import '../public/styles.css'
-import '../node_modules/react-spinner/react-spinner.css'
+import React                        from 'react';
+import { render }                   from 'react-dom';
+import { 
+  createStore, 
+  applyMiddleware 
+}                                   from 'redux';
+import { browserHistory }           from 'react-router';
+import thunk                        from 'redux-thunk';
 
-import Root from './root'
-import rootReducer from '../reducers/reducers'
+import Root                         from './root';
+import rootReducer                  from '../reducers/reducers';
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
-const history = browserHistory
+import 'isomorphic-fetch';
+import '../public/styles.css';
+import '../node_modules/react-spinner/react-spinner.css';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+const history = browserHistory;
 
 render(
   <Root store={store} history={history}/>, 
   document.getElementById('app')
-)
+);
