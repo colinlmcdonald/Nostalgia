@@ -71,7 +71,6 @@ module.exports = {
       })
       .then(res => res.json())
       .then(json => {
-        console.log('sup inside updateAccessToken');
         json.birthday = user.birthday;
         return json;
       })

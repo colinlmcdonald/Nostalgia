@@ -76,7 +76,6 @@ app.get('/user/:id/profile', (req, res) => {
     .then(response => response.json())
     .then(profile => {
       if (profile.error && profile.error.message === 'The access token expired') {
-        console.log(profile);
         sl.updateAccessToken(user)
           .then(profile => res.send(profile))
       } else {
