@@ -36,7 +36,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(morgan('dev'));
 
 app.get('/login', (req, res) => {
   const scope = 'user-read-private user-read-email playlist-modify-public';
@@ -140,6 +139,7 @@ app.post('/check-songs', (req, res) => {
 });
 
 if (!isProduction) {
+  app.use(morgan('dev'));
   const bundle = require('./compiler/compiler.js')
   bundle()
   app.all('/build/*', (req, res) => {
