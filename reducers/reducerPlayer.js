@@ -1,19 +1,10 @@
 import update           from 'react-addons-update';
 import * as constants   from '../constants/index';
 
-export function profile(state = {
-  name: '',
-  image: '',
-  id: '',
-  birthday: '',
+export function playlist(state = {
   currentSong: '',
   play: false,
   pause: false,
-  spotify: false,
-  playlistPending: false,
-  playlistSuccess: false,
-  allSongs: [],
-  playlist: []
 }, action) {
   switch(action.type) {
     case constants.SPOTIFY_LOGIN:

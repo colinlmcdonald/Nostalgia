@@ -119,9 +119,9 @@ app.post('/create-playlist', (req, res) => {
   const id = req.body.id;
   const songs = req.body.playlist;
   User.findOne({id}, (err, user) => {
-    cp.createSpotifyPlaylist(user)
+    cp.createSpotifyPlaylist(user, id)
       .then(response => response.json())
-      .then(playlist => cp.addSongsToPlaylist(playlist, songs))
+      .then(playlist => cp.addSongsToPlaylist(playlist, songs, id, user.access_token))
       .then(result => res.send(result))
       .catch(err => {
       console.log(err)

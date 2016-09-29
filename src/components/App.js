@@ -3,7 +3,7 @@ import { render }             from 'react-dom';
 import { Link }               from 'react-router';
 import { connect }            from 'react-redux';
 
-import * as actions           from '../../actions/actions';
+import { actions }            from '../../actions/index';
 
 import { NavBar }             from './NavBar';
 import { Router }             from '../router';
@@ -23,11 +23,11 @@ import Spinner                from 'react-spinner';
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.handleSongPlay = this.handleSongPlay.bind(this);
-    this.handleSongPlaylist = this.handleSongPlaylist.bind(this);
-    this.handleBirthdaySubmit = this.handleBirthdaySubmit.bind(this);
-    this.createSelectedPlaylist = this.createSelectedPlaylist.bind(this);
-    this.createAllSongsPlaylist = this.createAllSongsPlaylist.bind(this);
+    this.handleSongPlay           = this.handleSongPlay.bind(this);
+    this.handleSongPlaylist       = this.handleSongPlaylist.bind(this);
+    this.handleBirthdaySubmit     = this.handleBirthdaySubmit.bind(this);
+    this.createSelectedPlaylist   = this.createSelectedPlaylist.bind(this);
+    this.createAllSongsPlaylist   = this.createAllSongsPlaylist.bind(this);
   }
   
   componentDidMount() {
@@ -65,13 +65,13 @@ export class App extends Component {
   createSelectedPlaylist(e) {
     e.preventDefault();
     const { dispatch, playlist, id } = this.props;
-    dispatch(actions.createPlaylist(playlist, id));
+    dispatch(actions.createSpotifyPlaylist(playlist, id));
   }
 
   createAllSongsPlaylist(e) {
     e.preventDefault();
     const { dispatch, allSongs, id } = this.props;
-    dispatch(actions.createPlaylist(allSongs, id));
+    dispatch(actions.createSpotifyPlaylist(allSongs, id));
   }
 
   render() {
@@ -89,20 +89,20 @@ export class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const currentRoute = state.Routes.currentRoute;
-  const name = state.Profile.name;
-  const image = state.Profile.image;
-  const id = state.Profile.id;
-  const birthday = state.Profile.birthday;
-  const playlist = state.Profile.playlist;
-  const allSongs = state.Profile.allSongs;
-  const currentSong = state.Profile.currentSong;
-  const pause = state.Profile.pause;
-  const play = state.Profile.play;
-  const spotify = state.Profile.spotify;
-  const playlistSuccess = state.Profile.playlistSuccess;
-  const playlistPending = state.Profile.playlistPending;
-  const playlistError = state.Profile.playlistError;
+  const currentRoute      = state.Routes.currentRoute;
+  const name              = state.Profile.name;
+  const image             = state.Profile.image;
+  const id                = state.Profile.id;
+  const birthday          = state.Profile.birthday;
+  const playlist          = state.Playlist.playlist;
+  const allSongs          = state.Playlist.allSongs;
+  const currentSong       = state.Playlist.currentSong;
+  const pause             = state.Playlist.pause;
+  const play              = state.Playlist.play;
+  const spotify           = state.Playlist.spotify;
+  const playlistSuccess   = state.Playlist.playlistSuccess;
+  const playlistPending   = state.Playlist.playlistPending;
+  const playlistError     = state.Playlist.playlistError;
   return {
     name,
     image,

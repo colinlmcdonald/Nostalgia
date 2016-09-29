@@ -81,7 +81,7 @@ module.exports = {
     })
   },
 
-  createSpotifyPlaylist(user) {
+  createSpotifyPlaylist(user, id) {
     return fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
       method: 'POST',
       headers: {
@@ -94,7 +94,7 @@ module.exports = {
     })
   },
 
-  addSongsToPlaylist(playlist, songs) {
+  addSongsToPlaylist(playlist, songs, id, access_token) {
     const playlistURIs = {};
     songs.forEach(song => {
       if (song.uri) {
@@ -105,7 +105,7 @@ module.exports = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.access_token}`
+        'Authorization': `Bearer ${access_token}`
       },
       body: JSON.stringify({
         uris: Object.keys(playlistURIs)
