@@ -29,7 +29,7 @@ var config = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
-      }
+      },
       {
         test: /\.jpg$/, 
         loader: 'url-loader?limit=8192' 
