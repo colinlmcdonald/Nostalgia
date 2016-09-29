@@ -1,7 +1,7 @@
-var webpack = require('webpack');
-var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
+var webpack           = require('webpack');
+var path              = require('path');
+var nodeModulesPath   = path.resolve(__dirname, 'node_modules');
+var buildPath         = path.resolve(__dirname, 'public', 'build');
 
 var config = {
   devtool: 'source-map',
@@ -43,6 +43,14 @@ var config = {
         'node_modules'
       ]        
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ]
 };
 
 module.exports = config;
