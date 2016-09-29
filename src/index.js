@@ -12,7 +12,7 @@ import rootReducer                  from '../reducers/reducers';
 
 import 'isomorphic-fetch';
 import '../public/styles/main.css';
-import '../node_modules/react-spinner/react-spinner.css';
+import '../public/styles/react-spinner.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const history = browserHistory;
