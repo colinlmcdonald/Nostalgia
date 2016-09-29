@@ -6,7 +6,7 @@ const User          = require('../db/User.model.js');
 const isProduction  = process.env.NODE_ENV === 'production';
 
 const client_id     = config.CLIENT_ID;
-const redirect_uri  = config.REDIRECT_URI;
+const redirect_uri  = config.REDIRECT_URI : 'http://localhost:3000/callback';
 const client_secret = config.SECRET;
 
 module.exports = {
@@ -25,7 +25,6 @@ module.exports = {
   },
 
   fetchSpotifyUser(token) {
-    console.log('fetch w/ token', token);
     return fetch('https://api.spotify.com/v1/me', {
       headers: {
         Authorization: `Bearer ${token}`

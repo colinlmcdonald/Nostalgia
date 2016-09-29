@@ -20,7 +20,7 @@ const sl            = require('./server/spotifyLogin');
 const config        = require('./config.js');
 
 const client_id     = config.CLIENT_ID;
-const redirect_uri  = config.REDIRECT_URI;
+const redirect_uri  = isProduction ? config.REDIRECT_URI : 'http://localhost:3000/callback';
 const client_secret = config.SECRET;
 
 const proxy = httpProxy.createProxyServer({

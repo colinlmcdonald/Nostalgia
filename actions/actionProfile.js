@@ -8,7 +8,7 @@ export function getProfileInfo(id) {
       .then(json => {
         if (json.birthday) {
           dispatch(actions.setCurrentRoute('PlaylistView'))
-          dispatch(actions.generatePlaylist('1981'))
+          dispatch(actions.generatePlaylist(json.birthday.year))
         } else {
           dispatch(actions.setCurrentRoute('BirthdayView'))
         }
