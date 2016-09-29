@@ -2,7 +2,7 @@
 
 $(function() {
   var setBackgroundImage = function() {
-    var randomIndex = Math.floor(Math.random() * 24);
+    var randomIndex = Math.round(Math.random() * 24);
     $('#splash-page-img').css({
       'background': `linear-gradient(
         rgba(0, 0, 0, 0.8), 
@@ -18,10 +18,15 @@ $(function() {
     setBackgroundImage();
   }, 5000)
 
-  var el = document.getElementById('spotify-login-btn');
-  el.onclick = function() {
+  $('#spotify-login-btn').click(function() {
     location.href = '//localhost:3000/login'
-  }
+  })
+
+  setInterval(function() {
+    var randomNumber = Math.random() * 1000
+    $('#spotify-login-btn').css('background-color', "#"+((1<<24)*Math.random()|0).toString(16))
+  }, 1000)
+
   $('a[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
       var target = $(this.hash);
