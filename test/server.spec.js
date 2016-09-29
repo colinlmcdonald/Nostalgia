@@ -1,28 +1,52 @@
-var cp = require('../server/createPlaylist');
-var expect = require('expect');
-var spotify = require('../data');
-var testSpotifySongs = require('../playground')
+var cp                  = require('../server/createPlaylist');
+var expect              = require('expect');
+var spotify             = require('../data');
+var testSpotifySongs    = require('../playground')
 
 //TODO: Edit all songs to slice for the 3rd version of each song list
 
 describe('Server Helper Functions', () => {
-  it('longestWords should find the two longest words', () => {
-    var words = 'The computer doth protest too much';
-    expect(cp.longestTwoWords(words)).toEqual('computer protest');
+  describe('createPlaylist Functions', () => {
+    it('longestWords should find the two longest words', () => {
+      var words = 'The computer doth protest too much';
+      expect(cp.getSongsLongestWords(words)).toEqual('computer protest');
 
-    words = 'These are many of the words that I type when I want to type many words';
-    expect(cp.longestTwoWords(words)).toEqual('These words');
+      words = 'These are many of the words that I type when I want to type many words';
+      expect(cp.getSongsLongestWords(words)).toEqual('These words');
+    });
+
+    it('removeFeaturing should remove featuring and all other artist\'s', () => {
+      var artist = 'Twista Featuring Kanye West & Jamie Foxx';
+
+      expect(cp.removeFeaturing(artist)).toEqual('Twista');
+
+      artist = 'Destiny\'s Child featuring Someone Else';
+      expect(cp.removeFeaturing(artist)).toEqual('Destiny\'s Child');
+    });
+
+    xit('should scrape Billboard', (done) => {
+      var years = [1990, 1991, 1992, 1993];
+      return cp.scrapeBillboardSongs(years)
+        .then(res => {
+          expect(!!res).toEqual(true);
+          done();
+        })
+    })
+
+    it('scrapeBillBoard and then reduce/process songs', (done) => {
+      var years = [2001, 2002, 2003, 2004];
+      cp.scrapeBillboardSongs(years)
+        .then(processedSongs => cp.processBillboardSongs(processedSongs))
+        .then(billboardSongs => console.log(billboardSongs))
+        // .then(reducedSongs => done())
+        .catch(err => done())
+    })
+  });
+
+  describe('spotifyLogin Functions', () => {
+
   })
-
-  it('removeFeaturing should remove featuring and all other artist\'s', () => {
-    var artist = 'Twista Featuring Kanye West & Jamie Foxx';
-
-    expect(cp.removeFeaturing(artist)).toEqual('Twista');
-
-    artist = 'Destiny\'s Child featuring Someone Else';
-    expect(cp.removeFeaturing(artist)).toEqual('Destiny\'s Child');
-  })
-})
+});
 
 describe('Testing matching spotify and billboard songs', () => {
   it('should match the snoop diggity dog', () => {

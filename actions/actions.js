@@ -137,6 +137,7 @@ export function checkIfSongsOnSpotify(songs) {
 }
 
 export function processSpotifyCheck(payload) {
+  console.log(payload);
   let tracks = payload.filter(song => {
     return song.tracks.items.length > 0
   });

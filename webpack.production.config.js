@@ -29,7 +29,11 @@ var config = {
         exclude: '/node_modules'
       },
       //This converts our .css into JS
-      { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      }
+      // { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
     ]
   },
 

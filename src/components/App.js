@@ -13,9 +13,7 @@ import Spinner                from 'react-spinner';
 //TODO: undefined:1 Uncaught (in promise) h {family: "FontAwesome", style: "normal", weight: "normal", stretch: "normal"} -- seen this twice now
 //TODO: ReactAudioPlayer.js:146 Uncaught (in promise) DOMException: The element has no supported sources.
 //TODO: Outkast - Hey Ya & The Way You Move are matching for some reason
-//TODO: Style front page--back picture random 90s bands gif
 //TODO: Test & fix birthday page
-//TODO: Use refresh token--create helper function and get refresh token before requesting any information
 //TODO: Add browser's back button functionality
 //TODO: Remove react-router
 //TODO: Test error handling
@@ -105,7 +103,6 @@ function mapStateToProps(state) {
   const playlistSuccess = state.Profile.playlistSuccess;
   const playlistPending = state.Profile.playlistPending;
   const playlistError = state.Profile.playlistError;
-  console.log(id);
   return {
     name,
     image,
