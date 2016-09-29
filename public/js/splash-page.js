@@ -2,7 +2,7 @@
 
 $(function() {
   var setBackgroundImage = function() {
-    var randomIndex = Math.round(Math.random() * 24);
+    var randomIndex = Math.floor(Math.random() * 24) + 1;
     $('#splash-page-img').css({
       'background': `linear-gradient(
         rgba(0, 0, 0, 0.8), 
@@ -19,7 +19,7 @@ $(function() {
   }, 5000)
 
   $('#spotify-login-btn').click(function() {
-    location.href = '//nostlgia.herokuapp.com/login'
+    location.href = '//localhost:3000/login'
   })
 
   setInterval(function() {

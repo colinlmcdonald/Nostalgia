@@ -25,7 +25,6 @@ module.exports = {
         },
         exclude: '/node_modules'
       },
-      //This converts our .css into JS
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'

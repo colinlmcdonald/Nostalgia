@@ -20,9 +20,9 @@ const sl            = require('./server/spotifyLogin');
 const config        = require('./config.js');
 
 const client_id     = config.CLIENT_ID;
-const redirect_uri  = config.REDIRECT_URI;
+const redirect_uri  = isProduction ? config.REDIRECT_URI : 'http://localhost:3000/callback';
 const client_secret = config.SECRET;
-
+console.log(redirect_uri);
 const proxy = httpProxy.createProxyServer({
   changeOrigin: true
 });
@@ -54,6 +54,7 @@ app.get('/callback', (req, res) => {
   return sl.fetchSpotifyAccessToken(code)
   .then(spotify => spotify.json())
   .then(json => {
+    console.log('sup with it', json);
     access_token = json.access_token;
     refresh_token = json.refresh_token;
     return sl.fetchSpotifyUser(access_token)
