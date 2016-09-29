@@ -3,7 +3,7 @@ import { actions }    from './index';
 
 export function getProfileInfo(id) {
   return dispatch => {
-    return fetch(`http://localhost:3000/user/${id}/profile`)
+    return fetch(`/user/${id}/profile`)
       .then(res => res.json())
       .then(json => {
         if (json.birthday) {
@@ -31,7 +31,7 @@ export function submitBirthday(bdayArr, id) {
     day: bdayArr[2]
   }
   return dispatch => {
-    return fetch(`http://localhost:3000/user/${id}/birthday`, {
+    return fetch(`/user/${id}/birthday`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

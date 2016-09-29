@@ -2,7 +2,7 @@ import * as constants from '../constants/index';
 
 export function generatePlaylist(year) {
   return dispatch => {
-    return fetch(`http://localhost:3000/generate-playlist`, {
+    return fetch(`/generate-playlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export function processGeneratePlaylist(payload) {
 export function createSpotifyPlaylist(playlist, id) {
   return dispatch => {
     dispatch(createSpotifyPlaylistPending());
-    return fetch('http://localhost:3000/create-playlist', {
+    return fetch('/create-playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ export function createSpotifyPlaylistPending() {
 
 export function checkIfSongsOnSpotify(songs) {
   return dispatch => {
-    return fetch('http://localhost:3000/check-songs', {
+    return fetch('/check-songs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
