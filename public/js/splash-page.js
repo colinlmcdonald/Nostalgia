@@ -19,7 +19,7 @@ $(function() {
   }, 5000)
 
   $('#spotify-login-btn').click(function() {
-    location.href = '//nostlgia.herokuapp.com'
+    location.href = '//nostlgia.herokuapp.com/login'
   })
 
   setInterval(function() {
