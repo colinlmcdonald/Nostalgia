@@ -2,7 +2,7 @@
 
 $(function() {
   var setBackgroundImage = function() {
-    var randomIndex = Math.floor(Math.random() * 24) + 1;
+    var randomIndex = Math.floor(Math.random() * 23) + 1;
     $('#splash-page-img').css({
       'background': `linear-gradient(
         rgba(0, 0, 0, 0.8), 
@@ -10,7 +10,8 @@ $(function() {
         )`,
       'background-image': `url(images/gif-${randomIndex}.gif)`,
       'background-repeat': 'no-repeat',
-      'background-size': 'cover'
+      'background-size': 'cover',
+      'background-position': 'center'
     })
   };
   setBackgroundImage();
