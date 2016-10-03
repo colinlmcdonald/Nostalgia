@@ -257,3 +257,9 @@ body {
 #player {
   display: none;
 }
+
+@media (max-width: 768px) {
+  .nav: {
+    height: 150px;
+  }
+}
